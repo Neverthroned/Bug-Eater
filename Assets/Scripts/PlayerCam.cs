@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerCam : MonoBehaviour
 {
@@ -6,29 +7,42 @@ public class PlayerCam : MonoBehaviour
     public float sensY = 200f;
 
     public Transform orientation;
+    public InputActionAsset inputActions;
+
+    private InputAction lookAction;
 
     float yaw;
     float pitch;
 
-    void Start()
+    void Awake()
     {
+        lookAction = inputActions.FindActionMap("Player").FindAction("look");
+    }
+
+    void OnEnable()
+    {
+        lookAction.Enable();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
+    void OnDisable()
+    {
+        lookAction.Disable();
+    }
+
     void Update()
     {
-        float mouseX = Input.GetAxisRaw("Mouse X") * sensX * Time.deltaTime;
-        float mouseY = Input.GetAxisRaw("Mouse Y") * sensY * Time.deltaTime;
+        Vector2 look = lookAction.ReadValue<Vector2>();
 
-        yaw += mouseX;
-        pitch -= mouseY;
+        yaw += look.x * sensX * Time.deltaTime;
+        pitch -= look.y * sensY * Time.deltaTime;
         pitch = Mathf.Clamp(pitch, -89f, 89f);
 
-        // Camera looks up/down and left/right
+        // Camera pitch + yaw
         transform.rotation = Quaternion.Euler(pitch, yaw, 0f);
 
-        // Player / movement orientation rotates left/right only
+        // Player yaw only
         orientation.rotation = Quaternion.Euler(0f, yaw, 0f);
     }
 }
