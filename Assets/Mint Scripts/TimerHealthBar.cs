@@ -6,11 +6,12 @@ public class TimerHealthBar : MonoBehaviour
     
     public Image healthBarFill;
 
-     
-
     public float maxTime = 60f; 
     private float currentTime;
     private float timerSpeed = 1f;
+
+    public float flashSpeed = 5f;
+    private bool isFlashing = false;
 
     void Start()
     {
@@ -52,17 +53,24 @@ public class TimerHealthBar : MonoBehaviour
         if (fillAmount > 0.6f)
         {
             healthBarFill.color = Color.green;
+            isFlashing = false;
+            
             
         }
         else if (fillAmount > 0.3f)
         {
             healthBarFill.color = Color.yellow;
             timerSpeed = 0.5f;
+            isFlashing = false;
         }
         else
         {
             healthBarFill.color = Color.red;
             timerSpeed = 0.25f;
+            isFlashing = true;
+
+            float alpha = Mathf.PingPong(Time.time * flashSpeed, 1f);
+            healthBarFill.color = new Color(1f, 0f, 0f, alpha);
             
         }
     }
