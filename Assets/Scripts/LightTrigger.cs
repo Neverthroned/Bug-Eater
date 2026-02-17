@@ -14,6 +14,7 @@ public class LightTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Triggered by: " + other.name);
         if (CompareTag(other.tag = "Player"))
         {
 
