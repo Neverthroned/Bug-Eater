@@ -51,7 +51,7 @@ public class PlayerWalk : MonoBehaviour
 
     public void Jump()
     {
-        m_rigidbody.AddForceAtPosition(new Vector3(0, 5f, 0), Vector3.up, ForceMode.Impulse);
+        m_rigidbody.AddForce(Vector3.up * JumpSpeed, ForceMode.Impulse);
     }
 
     private void FixedUpdate()
