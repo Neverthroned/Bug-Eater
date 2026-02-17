@@ -19,6 +19,15 @@ public class TimerHealthBar : MonoBehaviour
         
     }
 
+    public void ResetTimer()
+    {
+    currentTime = maxTime;
+    timerSpeed = 1f;
+    isFlashing = false;
+
+    UpdateHealthBarUI();
+    }
+
     void Update()
     {
         if (currentTime > 0)
@@ -74,4 +83,6 @@ public class TimerHealthBar : MonoBehaviour
             
         }
     }
+
+
 }
