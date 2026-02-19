@@ -346,7 +346,7 @@ Light:
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
-  m_ColorTemperature: 5000
+  m_ColorTemperature: 11735
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
@@ -890,7 +890,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2b6d30a140c540c4b8c3239beb8ea18d, type: 3}
       propertyPath: m_LocalScale.z
-      value: 190.82
+      value: 278.7
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2b6d30a140c540c4b8c3239beb8ea18d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -902,7 +902,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2b6d30a140c540c4b8c3239beb8ea18d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.83
+      value: 2.804
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2b6d30a140c540c4b8c3239beb8ea18d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1026,7 +1026,7 @@ MonoBehaviour:
   m_AffectDiffuse: 1
   m_AffectSpecular: 1
   m_NonLightmappedOnly: 0
-  m_ShapeRadius: 0.025
+  m_ShapeRadius: 2.2
   m_SoftnessScale: 1
   m_UseCustomSpotLightShadowCone: 0
   m_CustomSpotLightShadowCone: 30
@@ -1148,7 +1148,7 @@ Light:
   serializedVersion: 12
   m_Type: 0
   m_Color: {r: 0.976876, g: 1, b: 0.5613208, a: 1}
-  m_Intensity: 24685.486
+  m_Intensity: 2777.1162
   m_Range: 6.6
   m_SpotAngle: 37.946434
   m_InnerSpotAngle: 12.266367
@@ -1197,7 +1197,7 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ForceVisible: 0
-  m_ShadowRadius: 0.025
+  m_ShadowRadius: 2.2
   m_ShadowAngle: 0
   m_LightUnit: 0
   m_LuxAtDistance: 1
