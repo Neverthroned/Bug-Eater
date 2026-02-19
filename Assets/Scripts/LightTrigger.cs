@@ -14,23 +14,18 @@ public class LightTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Triggered by: " + other.name);
-        if (CompareTag(other.tag = "Player"))
+        if (other.attachedRigidbody != null &&
+            other.attachedRigidbody.CompareTag("Player"))
         {
-
-            Debug.Log("Triggered by: " + other.name);
-
             spotLight.color = alertColor;
-            Debug.Log("Entered");
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (CompareTag(other.tag = "Player")) 
-            {
-
-
+        if (other.attachedRigidbody != null &&
+            other.attachedRigidbody.CompareTag("Player"))
+        {
             spotLight.color = normalColor;
         }
     }
