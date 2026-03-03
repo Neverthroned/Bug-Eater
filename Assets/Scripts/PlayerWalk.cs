@@ -9,6 +9,7 @@ public class PlayerWalk : MonoBehaviour
     private InputAction m_moveAction;
     private InputAction m_lookAction;
     private InputAction m_jumpAction;
+    private InputAction m_sprintAction;
 
     private Vector2 m_moveAmt;
     private Vector2 m_lookAmt;
@@ -17,6 +18,10 @@ public class PlayerWalk : MonoBehaviour
     public float WalkSpeed = 5;
     public float RotateSpeed = 5;
     public float JumpSpeed = 5;
+    public float SprintSpeed = 20;
+
+    private float currentSpeed;
+    public float Acceleration = 10f;
 
 
     private void OnEnable()
@@ -34,6 +39,7 @@ public class PlayerWalk : MonoBehaviour
         m_moveAction = InputSystem.actions.FindAction("move");
         m_lookAction = InputSystem.actions.FindAction("look");
         m_jumpAction = InputSystem.actions.FindAction("jump");
+        m_sprintAction = InputSystem.actions.FindAction("sprint");
 
         m_rigidbody = GetComponent<Rigidbody>();
     }
@@ -56,6 +62,9 @@ public class PlayerWalk : MonoBehaviour
 
     private void FixedUpdate()
     {
+        float targetSpeed = m_sprintAction.IsPressed() ? SprintSpeed : WalkSpeed;
+        currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, Acceleration * Time.fixedDeltaTime);
+
         Walking();
     }
 
@@ -65,6 +74,9 @@ public class PlayerWalk : MonoBehaviour
         orientation.forward * m_moveAmt.y +
         orientation.right * m_moveAmt.x;
 
-        m_rigidbody.MovePosition(m_rigidbody.position + moveDir.normalized * WalkSpeed * Time.fixedDeltaTime);
+        // Check if sprint is being held
+        float currentSpeed = m_sprintAction.IsPressed() ? SprintSpeed : WalkSpeed;
+
+        m_rigidbody.MovePosition(m_rigidbody.position + moveDir.normalized * currentSpeed * Time.fixedDeltaTime);
     }
 }
