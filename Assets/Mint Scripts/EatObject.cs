@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EatObject : MonoBehaviour, IInteractable
+public class EatObject : MonoBehaviour, Interactable
 {
     public string promptMessage = "Press E to Eat";
 

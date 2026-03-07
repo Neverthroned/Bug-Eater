@@ -1,49 +1,81 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
-    public Text nameText;
-    public Text dialogueText;
+    [Header("UI References")]
+    public GameObject dialoguePanel;
+    public TMP_Text nameText;
+    public TMP_Text dialogueText;
 
-    private Queue<string> sentences;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [Header("Typewriter Settings")]
+    public float typewriterSpeed = 0.04f;  // seconds per character
+
+    private Queue<string> sentences = new();
+    private bool isTyping = false;
+    private Coroutine typingCoroutine;
+
     void Start()
     {
-        sentences = new Queue<string>();
+        dialoguePanel.SetActive(false);
     }
 
     public void StartDialogue(Dialogue dialogue)
     {
-        Debug.Log("Starting Conversation with" + dialogue.name);
+        dialoguePanel.SetActive(true);
+        nameText.text = dialogue.characterName;
 
         sentences.Clear();
-
         foreach (string sentence in dialogue.sentences)
-        {
             sentences.Enqueue(sentence);
-        }
-
 
         DisplayNextSentence();
     }
 
+    // Call this from a UI "Next" button or wire it to the Interact action
     public void DisplayNextSentence()
     {
-        if(sentences.Count == 0)
+        // If still typing, skip to end of current sentence
+        if (isTyping)
+        {
+            StopCoroutine(typingCoroutine);
+            dialogueText.text = currentSentence;
+            isTyping = false;
+            return;
+        }
+
+        if (sentences.Count == 0)
         {
             EndDialogue();
             return;
         }
 
-        string sentence = sentences.Dequeue();
-        Debug.Log(sentence);
+        currentSentence = sentences.Dequeue();
+        typingCoroutine = StartCoroutine(TypeSentence(currentSentence));
+    }
+
+    private string currentSentence = "";
+
+    private IEnumerator TypeSentence(string sentence)
+    {
+        isTyping = true;
+        dialogueText.text = "";
+        foreach (char c in sentence)
+        {
+            dialogueText.text += c;
+            yield return new WaitForSeconds(typewriterSpeed);
+        }
+        isTyping = false;
     }
 
     void EndDialogue()
     {
-        Debug.Log("End Conversation");
+        dialoguePanel.SetActive(false);
+        Debug.Log("Dialogue ended.");
     }
+
+    public bool IsOpen() => dialoguePanel.activeSelf;
 }
