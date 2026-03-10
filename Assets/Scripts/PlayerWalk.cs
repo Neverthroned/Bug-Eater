@@ -23,6 +23,8 @@ public class PlayerWalk : MonoBehaviour
     private float currentSpeed;
     public float Acceleration = 10f;
 
+    public bool isFrozen = false;
+
 
     private void OnEnable()
     {
@@ -44,15 +46,25 @@ public class PlayerWalk : MonoBehaviour
         m_rigidbody = GetComponent<Rigidbody>();
     }
 
+    public void SetFreeze(bool frozen)
+    {
+        isFrozen = frozen;
+    }
+
     private void Update()
     {
-        m_moveAmt = m_moveAction.ReadValue<Vector2>();
-        m_lookAmt = m_lookAction.ReadValue<Vector2>();
-
-        if(m_jumpAction.WasPressedThisFrame())
+        if (isFrozen == false)
         {
-            Jump();
+            m_moveAmt = m_moveAction.ReadValue<Vector2>();
+            m_lookAmt = m_lookAction.ReadValue<Vector2>();
+
+            if (m_jumpAction.WasPressedThisFrame())
+            {
+                Jump();
+            }
         }
+
+        
     }
 
     public void Jump()

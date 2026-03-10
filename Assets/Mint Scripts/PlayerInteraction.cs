@@ -10,7 +10,6 @@ public class PlayerInteraction : MonoBehaviour
 
     [Header("UI")]
     public GameObject interactPromptUI;
-    public TMP_Text promptText;
 
     [Header("Input")]
     
@@ -43,8 +42,6 @@ public class PlayerInteraction : MonoBehaviour
     {
         cam = Camera.main;
         interactPromptUI.SetActive(false);
-
-        Debug.Log(interactAction);
     }
 
     void Update()
@@ -63,7 +60,6 @@ public class PlayerInteraction : MonoBehaviour
             {
                 currentInteractable = interactable;
                 interactPromptUI.SetActive(true);
-                promptText.text = interactable.GetPrompt();
                 return;
             }
         }

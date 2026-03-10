@@ -18,13 +18,24 @@ public class DialogueManager : MonoBehaviour
     private bool isTyping = false;
     private Coroutine typingCoroutine;
 
+    public bool freeze = false;
+
+    private PlayerWalk playerMovement;
+    private PlayerCam playerCam;
+
     void Start()
     {
         dialoguePanel.SetActive(false);
+        playerMovement = FindFirstObjectByType<PlayerWalk>();
+        playerCam = FindFirstObjectByType<PlayerCam>();
     }
 
     public void StartDialogue(Dialogue dialogue)
     {
+        freeze = true;
+        playerMovement?.SetFreeze(true);
+        playerCam?.SetFreeze(true);
+
         dialoguePanel.SetActive(true);
         nameText.text = dialogue.characterName;
 
@@ -73,6 +84,10 @@ public class DialogueManager : MonoBehaviour
 
     void EndDialogue()
     {
+        freeze = false;
+        playerMovement?.SetFreeze(false);
+        playerCam?.SetFreeze(false);
+
         dialoguePanel.SetActive(false);
         Debug.Log("Dialogue ended.");
     }

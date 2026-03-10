@@ -8,7 +8,7 @@ public class EatObject : MonoBehaviour, Interactable
 
     void Start()
     {
-        timer = FindObjectOfType<TimerHealthBar>();
+        timer = FindFirstObjectByType<TimerHealthBar>();
     }
 
     public void Interact()
