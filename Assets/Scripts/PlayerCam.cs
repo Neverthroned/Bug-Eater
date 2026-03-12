@@ -11,6 +11,8 @@ public class PlayerCam : MonoBehaviour
 
     private InputAction lookAction;
 
+    public bool isFrozen = false;
+
     float yaw;
     float pitch;
 
@@ -31,18 +33,27 @@ public class PlayerCam : MonoBehaviour
         lookAction.Disable();
     }
 
+    public void SetFreeze(bool frozen)
+    {
+        isFrozen = frozen;
+    }
+
     void Update()
     {
-        Vector2 look = lookAction.ReadValue<Vector2>();
+        if (isFrozen == false)
+        {
+            Vector2 look = lookAction.ReadValue<Vector2>();
 
-        yaw += look.x * sensX * Time.deltaTime;
-        pitch -= look.y * sensY * Time.deltaTime;
-        pitch = Mathf.Clamp(pitch, -89f, 89f);
+            yaw += look.x * sensX * Time.deltaTime;
+            pitch -= look.y * sensY * Time.deltaTime;
+            pitch = Mathf.Clamp(pitch, -89f, 89f);
 
-        // Camera pitch + yaw
-        transform.rotation = Quaternion.Euler(pitch, yaw, 0f);
+            // Camera pitch + yaw
+            transform.rotation = Quaternion.Euler(pitch, yaw, 0f);
 
-        // Player yaw only
-        orientation.rotation = Quaternion.Euler(0f, yaw, 0f);
+            // Player yaw only
+            orientation.rotation = Quaternion.Euler(0f, yaw, 0f);
+        }
+        
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EatObject : MonoBehaviour, IInteractable
+public class EatObject : MonoBehaviour, Interactable
 {
     public string promptMessage = "Press E to Eat";
 
@@ -8,7 +8,7 @@ public class EatObject : MonoBehaviour, IInteractable
 
     void Start()
     {
-        timer = FindObjectOfType<TimerHealthBar>();
+        timer = FindFirstObjectByType<TimerHealthBar>();
     }
 
     public void Interact()
