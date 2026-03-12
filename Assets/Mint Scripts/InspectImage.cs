@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class InspectImage : MonoBehaviour, IInteractable
+public class InspectImage : MonoBehaviour, Interactable
 {
     public GameObject inspectPanel;
 
