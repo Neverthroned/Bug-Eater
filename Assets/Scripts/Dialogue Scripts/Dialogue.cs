@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class Dialogue
 {
+    // Editor dialogue boxes
     public string characterName;   // renamed from 'name' to avoid System.Object conflict
     [TextArea(3, 10)]
     public string[] sentences;

@@ -28,16 +28,19 @@ public class PlayerWalk : MonoBehaviour
 
     private void OnEnable()
     {
+        // Find and enable input actions
         InputActions.FindActionMap("Player").Enable();
     }
 
     private void OnDisable()
     {
+        // Find and disable input actions
         InputActions.FindActionMap("Player").Disable();
     }
 
     private void Awake()
     {
+        // Assign input actions for Unity input manager
         m_moveAction = InputSystem.actions.FindAction("move");
         m_lookAction = InputSystem.actions.FindAction("look");
         m_jumpAction = InputSystem.actions.FindAction("jump");
@@ -46,6 +49,7 @@ public class PlayerWalk : MonoBehaviour
         m_rigidbody = GetComponent<Rigidbody>();
     }
 
+    // Freezing functionality (SEE DIALOGUE AND KEYPAD MANAGER)
     public void SetFreeze(bool frozen)
     {
         isFrozen = frozen;
@@ -53,6 +57,7 @@ public class PlayerWalk : MonoBehaviour
 
     private void Update()
     {
+        // Freezing functionality (SEE DIALOGUE AND KEYPAD MANAGER)
         if (isFrozen == false)
         {
             m_moveAmt = m_moveAction.ReadValue<Vector2>();
@@ -72,9 +77,12 @@ public class PlayerWalk : MonoBehaviour
         m_rigidbody.AddForce(Vector3.up * JumpSpeed, ForceMode.Impulse);
     }
 
+    // Speed and checks
     private void FixedUpdate()
     {
+        // Checks for sprint action, adjusts speed if necessary
         float targetSpeed = m_sprintAction.IsPressed() ? SprintSpeed : WalkSpeed;
+        // Current speed and acceleration by time
         currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, Acceleration * Time.fixedDeltaTime);
 
         Walking();
