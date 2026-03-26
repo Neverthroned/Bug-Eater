@@ -102,7 +102,7 @@ public class PlayerWalk : MonoBehaviour
             Vector3 normal = collision.contacts[0].normal;
 
             // Check if the surface normal is pointing upward
-            if (normal.y < 0.5f) // 0.5f = ~60° slope tolerance
+            if (normal.y < 0.4f) // 0.5f = ~60ï¿½ slope tolerance
             {
                 // Prevent downward velocity
                 Rigidbody rb = GetComponent<Rigidbody>();
@@ -122,7 +122,7 @@ public class PlayerWalk : MonoBehaviour
             Vector3 normal = collision.contacts[0].normal;
 
             // Check if the surface normal is pointing upward
-            if (normal.y < 0.5f) // 0.5f = ~60° slope tolerance
+            if (normal.y < 0.4f) // 0.5f = ~60ï¿½ slope tolerance
             {
                 // Prevent downward velocity
                 rb.linearVelocity = new Vector3(
