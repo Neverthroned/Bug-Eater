@@ -25,6 +25,8 @@ public class PlayerWalk : MonoBehaviour
 
     public bool isFrozen = false;
 
+    private Rigidbody rb;
+
 
     private void OnEnable()
     {
@@ -44,6 +46,8 @@ public class PlayerWalk : MonoBehaviour
         m_sprintAction = InputSystem.actions.FindAction("sprint");
 
         m_rigidbody = GetComponent<Rigidbody>();
+
+        rb = GetComponent<Rigidbody>();
     }
 
     public void SetFreeze(bool frozen)
@@ -64,7 +68,6 @@ public class PlayerWalk : MonoBehaviour
             }
         }
 
-        
     }
 
     public void Jump()
@@ -91,4 +94,45 @@ public class PlayerWalk : MonoBehaviour
 
         m_rigidbody.MovePosition(m_rigidbody.position + moveDir.normalized * currentSpeed * Time.fixedDeltaTime);
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.contacts.Length > 0)
+        {
+            Vector3 normal = collision.contacts[0].normal;
+
+            // Check if the surface normal is pointing upward
+            if (normal.y < 0.5f) // 0.5f = ~60° slope tolerance
+            {
+                // Prevent downward velocity
+                Rigidbody rb = GetComponent<Rigidbody>();
+                rb.linearVelocity = new Vector3(
+                    rb.linearVelocity.x,
+                    Mathf.Max(rb.linearVelocity.y, 3),
+                    rb.linearVelocity.z
+                );
+            }
+        }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.contacts.Length > 0)
+        {
+            Vector3 normal = collision.contacts[0].normal;
+
+            // Check if the surface normal is pointing upward
+            if (normal.y < 0.5f) // 0.5f = ~60° slope tolerance
+            {
+                // Prevent downward velocity
+                rb.linearVelocity = new Vector3(
+                    rb.linearVelocity.x,
+                    Mathf.Max(rb.linearVelocity.y, 10),
+                    rb.linearVelocity.z
+                );
+            }
+        }
+    }
 }
+
+// ^ WIP NEEDS TO APPLY VECTOR OPPOSITE TO CAMERA FACING
