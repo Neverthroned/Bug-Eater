@@ -1653,6 +1653,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NarrativeTrigger
   interactPrompt: Press E to talk
   narrativeImage: {fileID: 21300000, guid: 8cd55bf977b571d44ad8797f20b748fe, type: 3}
+  interactSound: {fileID: 8300000, guid: 43cb24d5acca64e43811d677a3cdaf68, type: 3}
 --- !u!135 &1462458884
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2121,6 +2122,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NarrativeTrigger
   interactPrompt: Press E to talk
   narrativeImage: {fileID: 21300000, guid: 4980e88bd0ac1f9499c320aeae212feb, type: 3}
+  interactSound: {fileID: 8300000, guid: c5e60fb7602bd8746be9c27398c461f2, type: 3}
 --- !u!135 &1930573185
 SphereCollider:
   m_ObjectHideFlags: 0
