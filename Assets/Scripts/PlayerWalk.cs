@@ -53,6 +53,11 @@ public class PlayerWalk : MonoBehaviour
     public void SetFreeze(bool frozen)
     {
         isFrozen = frozen;
+        if (frozen)
+        {
+            m_moveAmt = Vector2.zero;
+            m_rigidbody.linearVelocity = Vector3.zero;
+        }
     }
 
     private void Update()
