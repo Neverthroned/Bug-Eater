@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 98186786}
   - component: {fileID: 98186785}
   m_Layer: 5
-  m_Name: interactPanel
+  m_Name: InteractPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2077,10 +2077,10 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 694835555}
-  - {fileID: 727488000}
-  - {fileID: 98186787}
-  - {fileID: 1986399680}
   - {fileID: 1207398696}
+  - {fileID: 98186787}
+  - {fileID: 727488000}
+  - {fileID: 1986399680}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
