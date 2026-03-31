@@ -30,6 +30,7 @@ public class DialogueManager : MonoBehaviour
         playerCam = FindFirstObjectByType<PlayerCam>();
     }
 
+    // Starts dialogue and freezes player
     public void StartDialogue(Dialogue dialogue)
     {
         freeze = true;
@@ -46,7 +47,6 @@ public class DialogueManager : MonoBehaviour
         DisplayNextSentence();
     }
 
-    // Call this from a UI "Next" button or wire it to the Interact action
     public void DisplayNextSentence()
     {
         // If still typing, skip to end of current sentence
@@ -58,6 +58,7 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
+        // If no sentences, end dialogue
         if (sentences.Count == 0)
         {
             EndDialogue();
@@ -72,6 +73,7 @@ public class DialogueManager : MonoBehaviour
 
     private IEnumerator TypeSentence(string sentence)
     {
+        // Gets dialogue and types it out
         isTyping = true;
         dialogueText.text = "";
         foreach (char c in sentence)
@@ -82,6 +84,7 @@ public class DialogueManager : MonoBehaviour
         isTyping = false;
     }
 
+    // Ends and unfreezes character
     void EndDialogue()
     {
         freeze = false;
