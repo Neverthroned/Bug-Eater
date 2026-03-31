@@ -18,7 +18,7 @@ public class KeypadManager : MonoBehaviour
     private PlayerWalk playerMovement;
     private PlayerCam playerCam;
 
-
+    
     // Sets keypad to off on start and finds player scripts in order to freeze the player
     void Start()
     {
