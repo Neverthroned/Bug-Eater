@@ -9,11 +9,13 @@ public class LightTrigger : MonoBehaviour
 
     private void Start()
     {
+        // Color switching functionality
         spotLight.color = normalColor;
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        // Checks for player and changes spotlight color
         if (other.attachedRigidbody != null &&
             other.attachedRigidbody.CompareTag("Player"))
         {
@@ -23,6 +25,7 @@ public class LightTrigger : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        // Exit functionality
         if (other.attachedRigidbody != null &&
             other.attachedRigidbody.CompareTag("Player"))
         {

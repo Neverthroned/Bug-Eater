@@ -13,7 +13,6 @@ public class DialogueTrigger : MonoBehaviour, Interactable
     // Whether the player is close enough (inside the trigger collider)
     private bool playerInRange = false;
 
-    // --- IInteractable ---
 
     public string GetPrompt()
     {
@@ -26,6 +25,7 @@ public class DialogueTrigger : MonoBehaviour, Interactable
 
         DialogueManager manager = FindFirstObjectByType<DialogueManager>();
 
+        // Opens dialogue, if dialogue is already open, display the next sentence upon interact button being pressed
         if (manager.IsOpen())
             manager.DisplayNextSentence();
         else

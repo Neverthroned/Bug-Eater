@@ -25,34 +25,48 @@ public class PlayerWalk : MonoBehaviour
 
     public bool isFrozen = false;
 
+    private Rigidbody rb;
+
 
     private void OnEnable()
     {
+        // Find and enable input actions
         InputActions.FindActionMap("Player").Enable();
     }
 
     private void OnDisable()
     {
+        // Find and disable input actions
         InputActions.FindActionMap("Player").Disable();
     }
 
     private void Awake()
     {
+        // Assign input actions for Unity input manager
         m_moveAction = InputSystem.actions.FindAction("move");
         m_lookAction = InputSystem.actions.FindAction("look");
         m_jumpAction = InputSystem.actions.FindAction("jump");
         m_sprintAction = InputSystem.actions.FindAction("sprint");
 
         m_rigidbody = GetComponent<Rigidbody>();
+
+        rb = GetComponent<Rigidbody>();
     }
 
+    // Freezing functionality (SEE DIALOGUE AND KEYPAD MANAGER)
     public void SetFreeze(bool frozen)
     {
         isFrozen = frozen;
+        if (frozen)
+        {
+            m_moveAmt = Vector2.zero;
+            m_rigidbody.linearVelocity = Vector3.zero;
+        }
     }
 
     private void Update()
     {
+        // Freezing functionality (SEE DIALOGUE AND KEYPAD MANAGER)
         if (isFrozen == false)
         {
             m_moveAmt = m_moveAction.ReadValue<Vector2>();
@@ -64,7 +78,6 @@ public class PlayerWalk : MonoBehaviour
             }
         }
 
-        
     }
 
     public void Jump()
@@ -72,9 +85,12 @@ public class PlayerWalk : MonoBehaviour
         m_rigidbody.AddForce(Vector3.up * JumpSpeed, ForceMode.Impulse);
     }
 
+    // Speed and checks
     private void FixedUpdate()
     {
+        // Checks for sprint action, adjusts speed if necessary
         float targetSpeed = m_sprintAction.IsPressed() ? SprintSpeed : WalkSpeed;
+        // Current speed and acceleration by time
         currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, Acceleration * Time.fixedDeltaTime);
 
         Walking();
@@ -91,4 +107,45 @@ public class PlayerWalk : MonoBehaviour
 
         m_rigidbody.MovePosition(m_rigidbody.position + moveDir.normalized * currentSpeed * Time.fixedDeltaTime);
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.contacts.Length > 0)
+        {
+            Vector3 normal = collision.contacts[0].normal;
+
+            // Check if the surface normal is pointing upward
+            if (normal.y < 0.4f) // 0.5f = ~60� slope tolerance
+            {
+                // Prevent downward velocity
+                Rigidbody rb = GetComponent<Rigidbody>();
+                rb.linearVelocity = new Vector3(
+                    rb.linearVelocity.x,
+                    Mathf.Max(rb.linearVelocity.y, 3),
+                    rb.linearVelocity.z
+                );
+            }
+        }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.contacts.Length > 0)
+        {
+            Vector3 normal = collision.contacts[0].normal;
+
+            // Check if the surface normal is pointing upward
+            if (normal.y < 0.4f) // 0.5f = ~60� slope tolerance
+            {
+                // Prevent downward velocity
+                rb.linearVelocity = new Vector3(
+                    rb.linearVelocity.x,
+                    Mathf.Max(rb.linearVelocity.y, 10),
+                    rb.linearVelocity.z
+                );
+            }
+        }
+    }
 }
+
+// ^ WIP NEEDS TO APPLY VECTOR OPPOSITE TO CAMERA FACING
