@@ -3,7 +3,9 @@ using UnityEngine.UI;
 
 public class TimerHealthBar : MonoBehaviour
 {
-    
+    [Header("UI")]
+    public GameObject hungerUIPanel;
+
     public Image healthBarFill;
 
     public float maxTime = 60f; 
@@ -12,6 +14,21 @@ public class TimerHealthBar : MonoBehaviour
 
     public float flashSpeed = 5f;
     private bool isFlashing = false;
+
+    [Header("Death UI")]
+    public GameObject deathPanel;
+
+    [Header("Optional UI To Hide On Death")]
+    public GameObject dialoguePanel;
+    public GameObject inspectPanel;
+    public GameObject keypadPanel;
+    public GameObject interactPromptUI;
+
+    //pausing bool so hunger bar pauses during dialogue.
+    private bool isPaused = false;
+
+    //death bool...OF DEATH!
+    private bool isDead = false;
 
     void Start()
     {
@@ -30,6 +47,8 @@ public class TimerHealthBar : MonoBehaviour
 
     void Update()
     {
+        if (isPaused) return;
+
         if (currentTime > 0)
         {
             
@@ -82,6 +101,27 @@ public class TimerHealthBar : MonoBehaviour
             healthBarFill.color = new Color(1f, 0f, 0f, alpha);
             
         }
+    }
+
+    public void PauseTimer()
+    {
+        isPaused = true;
+
+        if (hungerUIPanel != null)
+            hungerUIPanel.SetActive(false);
+    }
+
+    public void ResumeTimer()
+    {
+        isPaused = false;
+
+        if (hungerUIPanel != null)
+            hungerUIPanel.SetActive(true);
+    }
+
+    public bool IsPaused()
+    {
+        return isPaused;
     }
 
 

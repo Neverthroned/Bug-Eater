@@ -15,6 +15,9 @@ public class NarrativeManager : MonoBehaviour
     private PlayerWalk playerMovement;
     private PlayerCam playerCam;
 
+    //sets public for timer healthbar variable
+    public TimerHealthBar timerHealthBar;
+
     // Sets keypad to off on start and finds player scripts in order to freeze the player
     void Start()
     {
@@ -33,6 +36,10 @@ public class NarrativeManager : MonoBehaviour
         playerMovement?.SetFreeze(true);
         playerCam?.SetFreeze(true);
         narrativePanel.SetActive(true);
+
+        //timerHealthbar_pause
+        if (timerHealthBar != null)
+            timerHealthBar.PauseTimer();
     }
 
     // Probably removable once actual logic is put in
@@ -48,6 +55,11 @@ public class NarrativeManager : MonoBehaviour
         playerCam?.SetFreeze(false);
 
         narrativePanel.SetActive(false);
+
+        //resumes timer
+
+        if (timerHealthBar != null)
+            timerHealthBar.ResumeTimer();
     }
     public bool IsOpen() => narrativePanel.activeSelf;
 }

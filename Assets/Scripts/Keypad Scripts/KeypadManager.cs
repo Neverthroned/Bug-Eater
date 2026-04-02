@@ -18,7 +18,9 @@ public class KeypadManager : MonoBehaviour
     private PlayerWalk playerMovement;
     private PlayerCam playerCam;
 
-    
+    //sets public for timer healthbar variable
+    public TimerHealthBar timerHealthBar;
+
     // Sets keypad to off on start and finds player scripts in order to freeze the player
     void Start()
     {
@@ -41,6 +43,10 @@ public class KeypadManager : MonoBehaviour
         //Show the mouse for the player
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+
+        //timerHealthbar_pause
+        if (timerHealthBar != null)
+            timerHealthBar.PauseTimer();
     }
 
     //called by each button, what really makes the keypad work!
@@ -96,6 +102,11 @@ public class KeypadManager : MonoBehaviour
         // Hide and lock cursor again
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        //resumes timer
+
+        if (timerHealthBar != null)
+            timerHealthBar.ResumeTimer();
     }
     public bool IsOpen() => keypadPanel.activeSelf;
 }

@@ -23,6 +23,9 @@ public class DialogueManager : MonoBehaviour
     private PlayerWalk playerMovement;
     private PlayerCam playerCam;
 
+    //sets public for timer healthbar variable
+    public TimerHealthBar timerHealthBar;
+
     void Start()
     {
         dialoguePanel.SetActive(false);
@@ -36,6 +39,11 @@ public class DialogueManager : MonoBehaviour
         freeze = true;
         playerMovement?.SetFreeze(true);
         playerCam?.SetFreeze(true);
+
+        //timerHealthbar_pause
+        if (timerHealthBar != null)
+            timerHealthBar.PauseTimer();
+
 
         dialoguePanel.SetActive(true);
         nameText.text = dialogue.characterName;
@@ -93,6 +101,11 @@ public class DialogueManager : MonoBehaviour
 
         dialoguePanel.SetActive(false);
         Debug.Log("Dialogue ended.");
+
+        //resumes timer
+
+        if (timerHealthBar != null)
+            timerHealthBar.ResumeTimer();
     }
 
     public bool IsOpen() => dialoguePanel.activeSelf;
