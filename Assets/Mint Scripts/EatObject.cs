@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class EatObject : MonoBehaviour, Interactable
 {
@@ -13,12 +14,15 @@ public class EatObject : MonoBehaviour, Interactable
 
     public void Interact()
     {
-         if (timer != null)
         {
-            timer.ResetTimer();
+            Debug.Log("Interact pressed");
+
+            BugManager manager = FindFirstObjectByType<BugManager>();
+            
+            manager.StartBug();
+
+            Destroy(gameObject);
         }
-        
-        Destroy(gameObject);
     }
 
     public string GetPrompt()

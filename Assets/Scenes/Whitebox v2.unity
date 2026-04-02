@@ -2082,6 +2082,90 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 56096508}
   m_CullTransparentMesh: 1
+--- !u!1 &57264159
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 57264161}
+  - component: {fileID: 57264160}
+  m_Layer: 0
+  m_Name: BugPasses
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &57264160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 57264159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26d6499a6bd256e47b859377446493a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.HighDefinition.Runtime::UnityEngine.Rendering.HighDefinition.CustomPassVolume
+  m_IsGlobal: 1
+  fadeRadius: 0
+  priority: 0
+  customPasses:
+  - rid: 837271568803692606
+  - rid: 837271568803692607
+  injectionPoint: 1
+  m_TargetCamera: {fileID: 0}
+  useTargetCamera: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 837271568803692606
+      type: {class: FullScreenCustomPass, ns: UnityEngine.Rendering.HighDefinition, asm: Unity.RenderPipelines.HighDefinition.Runtime}
+      data:
+        m_Name: CaterpillarPass
+        enabled: 0
+        targetColorBuffer: 0
+        targetDepthBuffer: 0
+        clearFlags: 0
+        passFoldout: 0
+        m_Version: 0
+        fullscreenPassMaterial: {fileID: 2100000, guid: 6d8af520436c82a478d2b179eb3b1181, type: 2}
+        materialPassIndex: 0
+        materialPassName: DrawProcedural
+        fetchColorBuffer: 0
+    - rid: 837271568803692607
+      type: {class: FullScreenCustomPass, ns: UnityEngine.Rendering.HighDefinition, asm: Unity.RenderPipelines.HighDefinition.Runtime}
+      data:
+        m_Name: SnailPass
+        enabled: 0
+        targetColorBuffer: 0
+        targetDepthBuffer: 0
+        clearFlags: 0
+        passFoldout: 0
+        m_Version: 0
+        fullscreenPassMaterial: {fileID: 2100000, guid: 0b342571ef9658747a072a37f6e172e0, type: 2}
+        materialPassIndex: 0
+        materialPassName: Custom Pass 0
+        fetchColorBuffer: 0
+--- !u!4 &57264161
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 57264159}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 529.44653, y: -322.9503, z: -5.0612183}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &57882103
 GameObject:
   m_ObjectHideFlags: 0
@@ -31940,37 +32024,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -1007636124089141534, guid: 20d3b1491d791384a9896a766784f57b, type: 3}
---- !u!1 &1320851805
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1320851806}
-  m_Layer: 0
-  m_Name: Bridger Systems Testing
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1320851806
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1320851805}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 882.9573, y: 156.84, z: 549.7308}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1322875645
 GameObject:
   m_ObjectHideFlags: 0
@@ -38786,7 +38839,7 @@ Light:
   serializedVersion: 12
   m_Type: 1
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 10
+  m_Intensity: 0.5
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -38829,7 +38882,7 @@ Light:
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
-  m_ColorTemperature: 6570
+  m_ColorTemperature: 12889
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 1.35e-43, y: 0, z: 4.0186406e+33, w: 7.9755096e+23}
   m_UseBoundingSphereOverride: 0
@@ -38892,6 +38945,71 @@ Transform:
   - {fileID: 833532978}
   m_Father: {fileID: 738480215}
   m_LocalEulerAnglesHint: {x: 0, y: 71.537, z: 0}
+--- !u!1001 &1652026657
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 15f2977fe10e6da4897436938ea6b8e5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 889.0107
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 15f2977fe10e6da4897436938ea6b8e5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 156.5814
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 15f2977fe10e6da4897436938ea6b8e5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 557.1103
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 15f2977fe10e6da4897436938ea6b8e5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.16712934
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 15f2977fe10e6da4897436938ea6b8e5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.6478629
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 15f2977fe10e6da4897436938ea6b8e5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.015570289
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 15f2977fe10e6da4897436938ea6b8e5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.74303365
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 15f2977fe10e6da4897436938ea6b8e5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 15f2977fe10e6da4897436938ea6b8e5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 15f2977fe10e6da4897436938ea6b8e5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -759475544387627608, guid: 15f2977fe10e6da4897436938ea6b8e5, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b35994b84aa9f034584e06384f72bdfd, type: 2}
+    - target: {fileID: 919132149155446097, guid: 15f2977fe10e6da4897436938ea6b8e5, type: 3}
+      propertyPath: m_Name
+      value: Campfire(Non flipped Normals)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1341857805106158205, guid: 15f2977fe10e6da4897436938ea6b8e5, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: d5d9f83b326de934da5f41f93690f880, type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 15f2977fe10e6da4897436938ea6b8e5, type: 3}
 --- !u!1 &1653558182
 GameObject:
   m_ObjectHideFlags: 0
@@ -53542,8 +53660,9 @@ SceneRoots:
   m_Roots:
   - {fileID: 1276067884}
   - {fileID: 1366134139}
-  - {fileID: 665877540}
   - {fileID: 1659050035}
+  - {fileID: 57264161}
+  - {fileID: 665877540}
   - {fileID: 1643543571}
   - {fileID: 1955538939}
   - {fileID: 211382361}
@@ -53566,6 +53685,6 @@ SceneRoots:
   - {fileID: 124856589}
   - {fileID: 1354090258}
   - {fileID: 5113188605908758205}
-  - {fileID: 1320851806}
   - {fileID: 2059492897}
   - {fileID: 1257576985}
+  - {fileID: 1652026657}
