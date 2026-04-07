@@ -10,7 +10,7 @@ public class BugManager : MonoBehaviour
     {
         // Compare the eaten bug's name to known prefab names
         // Unity appends "(Clone)" to instantiated prefabs, so we use Contains
-        if (SBugPrefab != null && eatenBug.name.Contains(SBugPrefab.name))
+        if (SBugPrefab != null )
         {
             Debug.Log("Ate a Snail!");
             SnailVFX();
