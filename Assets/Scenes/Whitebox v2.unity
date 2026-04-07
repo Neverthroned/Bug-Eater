@@ -17498,6 +17498,11 @@ MonoBehaviour:
   healthBarFill: {fileID: 1406125126}
   maxTime: 60
   flashSpeed: 5
+  deathPanel: {fileID: 1194596091}
+  dialoguePanel: {fileID: 1930848060}
+  inspectPanel: {fileID: 1548570988}
+  keypadPanel: {fileID: 370347818}
+  interactPromptUI: {fileID: 2052468380}
 --- !u!1 &673785917
 GameObject:
   m_ObjectHideFlags: 0
@@ -20450,7 +20455,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 798065144}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 665877541}
+        m_TargetAssemblyTypeName: TimerHealthBar, Assembly-CSharp
+        m_MethodName: RestartSceneFromButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &798065144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25159,7 +25176,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1003888693}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 665877541}
+        m_TargetAssemblyTypeName: TimerHealthBar, Assembly-CSharp
+        m_MethodName: RestartSceneFromButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1003888693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30437,7 +30466,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1194596092
 RectTransform:
   m_ObjectHideFlags: 0

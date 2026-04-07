@@ -1,5 +1,6 @@
 using UnityEngine;
-using UnityEngine.UI; 
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class TimerHealthBar : MonoBehaviour
 {
@@ -30,24 +31,47 @@ public class TimerHealthBar : MonoBehaviour
     //death bool...OF DEATH!
     private bool isDead = false;
 
+    private PlayerWalk playerMovement;
+    private PlayerCam playerCam;
+
     void Start()
     {
         currentTime = maxTime;
-        
+
+
+        //needed for death UI scene script.
+        playerMovement = FindFirstObjectByType<PlayerWalk>();
+        playerCam = FindFirstObjectByType<PlayerCam>();
+
+        if (deathPanel != null)
+            deathPanel.SetActive(false);
+
+        UpdateHealthBarUI();
     }
 
     public void ResetTimer()
     {
-    currentTime = maxTime;
-    timerSpeed = 1f;
-    isFlashing = false;
 
-    UpdateHealthBarUI();
+        currentTime = maxTime;
+        timerSpeed = 1f;
+        isFlashing = false;
+
+        isPaused = false;
+        isDead = false;
+
+        if (deathPanel != null)
+           deathPanel.SetActive(false);
+
+        if (hungerUIPanel != null)
+           hungerUIPanel.SetActive(true);
+
+         UpdateHealthBarUI();
+
     }
 
     void Update()
     {
-        if (isPaused) return;
+        if (isPaused || isDead) return;
 
         if (currentTime > 0)
         {
@@ -59,6 +83,12 @@ public class TimerHealthBar : MonoBehaviour
 
             
             UpdateHealthBarUI();
+
+            //time to die!
+            if (currentTime <= 0f && !isDead)
+            {
+                Die();
+            }
         }
         else
         {
@@ -103,8 +133,48 @@ public class TimerHealthBar : MonoBehaviour
         }
     }
 
+    //handles death. Ooooh I can't decide, whether you should live or die.
+    void Die()
+    {
+        isDead = true;
+        isPaused = true;
+
+        Debug.Log("Player died of starvation.");
+
+        // Freeze player
+        playerMovement?.SetFreeze(true);
+        playerCam?.SetFreeze(true);
+
+        // Hide normal UI
+        if (hungerUIPanel != null)
+            hungerUIPanel.SetActive(false);
+
+        if (dialoguePanel != null)
+            dialoguePanel.SetActive(false);
+
+        if (inspectPanel != null)
+            inspectPanel.SetActive(false);
+
+        if (keypadPanel != null)
+            keypadPanel.SetActive(false);
+
+        if (interactPromptUI != null)
+            interactPromptUI.SetActive(false);
+
+        // Show death screen
+        if (deathPanel != null)
+            deathPanel.SetActive(true);
+
+        // Bring back mouse
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+
     public void PauseTimer()
     {
+        if (isDead) return;
+
         isPaused = true;
 
         if (hungerUIPanel != null)
@@ -113,6 +183,8 @@ public class TimerHealthBar : MonoBehaviour
 
     public void ResumeTimer()
     {
+        if (isDead) return;
+
         isPaused = false;
 
         if (hungerUIPanel != null)
@@ -124,5 +196,18 @@ public class TimerHealthBar : MonoBehaviour
         return isPaused;
     }
 
+    public void RestartScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 
+    public void RestartSceneFromButton()
+    {
+        RestartScene();
+    }
+
+    public void QuitToRestartAnyway()
+    {
+        RestartScene();
+    }
 }
