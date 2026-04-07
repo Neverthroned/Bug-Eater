@@ -1,9 +1,9 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class EatObject : MonoBehaviour, Interactable
 {
     public string promptMessage = "Press E to Eat";
-
     private TimerHealthBar timer;
 
     void Start()
@@ -13,11 +13,12 @@ public class EatObject : MonoBehaviour, Interactable
 
     public void Interact()
     {
-         if (timer != null)
-        {
-            timer.ResetTimer();
-        }
-        
+        Debug.Log("Interact pressed");
+        BugManager manager = FindFirstObjectByType<BugManager>();
+
+        if (manager != null)
+            manager.StartBug(gameObject);  // Send bug type to the manager
+
         Destroy(gameObject);
     }
 
