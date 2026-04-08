@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5741392693634822071}
   - component: {fileID: 8397764702482602563}
   m_Layer: 0
-  m_Name: TreePrefab2
+  m_Name: Tree2Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,7 +79,7 @@ LODGroup:
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 6469872548109319439, guid: e4d91c11492c48241975d9da2ec9f6ef, type: 3}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.18001156
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 6469872548109319439, guid: e4d91c11492c48241975d9da2ec9f6ef, type: 3}
