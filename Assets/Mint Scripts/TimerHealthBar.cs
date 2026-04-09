@@ -25,6 +25,15 @@ public class TimerHealthBar : MonoBehaviour
     public GameObject keypadPanel;
     public GameObject interactPromptUI;
 
+    //metabolism bool. Starts off false, is switched when the player enters a light or eats a bug. 
+    private bool metabolismStarted = false;
+
+    //variables for a health drain that uses the LightSpawner tag
+    private int activeLightHazards = 0;
+
+    // how strong each light is
+    public float lightDrainMultiplier = 10f;
+
     //pausing bool so hunger bar pauses during dialogue.
     private bool isPaused = false;
 
@@ -36,7 +45,8 @@ public class TimerHealthBar : MonoBehaviour
 
     void Start()
     {
-        currentTime = maxTime;
+        currentTime = maxTime * 0.5f; // start at half hunger
+        UpdateHealthBarUI();
 
 
         //needed for death UI scene script.
@@ -71,14 +81,15 @@ public class TimerHealthBar : MonoBehaviour
 
     void Update()
     {
-        if (isPaused || isDead) return;
+        if (isPaused || isDead || !metabolismStarted) return;
 
         if (currentTime > 0)
         {
-            
-            currentTime -= Time.deltaTime * timerSpeed; 
-            
-            
+
+            float totalMultiplier = Mathf.Pow(lightDrainMultiplier, activeLightHazards);
+            currentTime -= Time.deltaTime * timerSpeed * totalMultiplier;
+
+
             currentTime = Mathf.Clamp(currentTime, 0f, maxTime);
 
             
@@ -97,6 +108,14 @@ public class TimerHealthBar : MonoBehaviour
         }
     }
 
+    //metabolism starts. Hungry...so...so...hungry....
+    public void StartMetabolism()
+    {
+        if (metabolismStarted) return; // prevent double-trigger
+
+        metabolismStarted = true;
+        Debug.Log("Metabolism started! Hunger begins draining.");
+    }
     void UpdateHealthBarUI()
     {
         
@@ -131,6 +150,17 @@ public class TimerHealthBar : MonoBehaviour
             healthBarFill.color = new Color(1f, 0f, 0f, alpha);
             
         }
+    }
+
+    //these public voids help handle the drain multiplier when interacting with lights
+    public void EnterLightHazard()
+    {
+        activeLightHazards++;
+    }
+
+    public void ExitLightHazard()
+    {
+        activeLightHazards = Mathf.Max(0, activeLightHazards - 1);
     }
 
     //handles death. Ooooh I can't decide, whether you should live or die.

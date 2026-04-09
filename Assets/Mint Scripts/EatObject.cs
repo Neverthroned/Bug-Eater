@@ -18,7 +18,8 @@ public class EatObject : MonoBehaviour, Interactable
 
         //resets the timer
         if (timerHealthBar != null)
-            timerHealthBar.ResetTimer();
+        timerHealthBar.StartMetabolism();
+        timerHealthBar.ResetTimer();
 
         if (manager != null)
             manager.StartBug(gameObject);  // Send bug type to the manager

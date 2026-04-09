@@ -7,10 +7,13 @@ public class LightTrigger : MonoBehaviour
     public Color normalColor = Color.yellow;
     public Color alertColor = Color.red;
 
+
     private void Start()
     {
         // Color switching functionality
         spotLight.color = normalColor;
+
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -30,6 +33,7 @@ public class LightTrigger : MonoBehaviour
             other.attachedRigidbody.CompareTag("Player"))
         {
             spotLight.color = normalColor;
+
         }
     }
 }
