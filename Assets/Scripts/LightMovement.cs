@@ -21,9 +21,15 @@ public class WanderingAI : MonoBehaviour
 
     // Reference to player's transform
     public Transform player;
+
+    //private float spawn = GameObject.FindGameObjectWithTag("LightSpawner").transform;
+    public Transform spawn;
     
     // Distance at which the enemy will start chasing
     public float chaseRange = 10f;
+
+    //Distance the light will travel before returning to spawn
+    public float movementRange = 100f;
 
     private NavMeshAgent agent;
     private float timer;
@@ -38,6 +44,11 @@ public class WanderingAI : MonoBehaviour
         if (player == null && GameObject.FindGameObjectWithTag("Player") != null)
         {
             player = GameObject.FindGameObjectWithTag("Player").transform;
+        }
+
+        if (spawn == null && GameObject.FindGameObjectWithTag("LightSpawner") != null)
+        {
+            spawn = GameObject.FindGameObjectWithTag("LightSpawner").transform;
         }
     }
 
@@ -60,11 +71,18 @@ public class WanderingAI : MonoBehaviour
 
         // Calculate distance to player
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+        // Calculate distance to light spawn
+        float distanceToSpawn = Vector3.Distance(transform.position, spawn.position);
 
         // Chase if within range
         if (distanceToPlayer <= chaseRange)
         {
             ChasePlayer();
+        }
+
+        if (distanceToSpawn > movementRange)
+        {
+            ReturnToSpawn();
         }
         
     }
@@ -96,10 +114,24 @@ public class WanderingAI : MonoBehaviour
         transform.LookAt(player);
     }
 
-    // Draw chase range in editor for easy debugging
+    void ReturnToSpawn()
+    {
+        // Direction toward the spawn
+        Vector3 direction = (spawn.position - transform.position).normalized;
+
+        // Move enemy toward spawn
+        transform.position += direction * moveSpeed * Time.deltaTime;
+
+        // Optional: Rotate enemy to face spawn
+        transform.LookAt(spawn);
+    }
+
+    // Draw chase range and movement range in editor for easy debugging
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, chaseRange);
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, movementRange);
     }
 }

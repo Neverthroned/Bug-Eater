@@ -108,44 +108,31 @@ public class PlayerWalk : MonoBehaviour
         m_rigidbody.MovePosition(m_rigidbody.position + moveDir.normalized * currentSpeed * Time.fixedDeltaTime);
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.contacts.Length > 0)
-        {
-            Vector3 normal = collision.contacts[0].normal;
-
-            // Check if the surface normal is pointing upward
-            if (normal.y < 0.4f) // 0.5f = ~60� slope tolerance
-            {
-                // Prevent downward velocity
-                Rigidbody rb = GetComponent<Rigidbody>();
-                rb.linearVelocity = new Vector3(
-                    rb.linearVelocity.x,
-                    Mathf.Max(rb.linearVelocity.y, 3),
-                    rb.linearVelocity.z
-                );
-            }
-        }
-    }
-
     private void OnCollisionStay(Collision collision)
     {
         if (collision.contacts.Length > 0)
         {
             Vector3 normal = collision.contacts[0].normal;
 
-            // Check if the surface normal is pointing upward
-            if (normal.y < 0.4f) // 0.5f = ~60� slope tolerance
+            if (normal.y < 0.4f)
             {
                 // Prevent downward velocity
                 rb.linearVelocity = new Vector3(
                     rb.linearVelocity.x,
-                    Mathf.Max(rb.linearVelocity.y, 10),
+                    Mathf.Max(rb.linearVelocity.y),
                     rb.linearVelocity.z
+                );
+                Vector3 oppositeDir = -transform.forward;
+                // Ignore vertical so backward movement stays on the ground
+                oppositeDir.y = 0f;
+                oppositeDir.Normalize();
+                // Move the player backward
+                rb.linearVelocity = new Vector3(
+                    oppositeDir.x, 
+                    oppositeDir.y, 
+                    oppositeDir.z
                 );
             }
         }
     }
 }
-
-// ^ WIP NEEDS TO APPLY VECTOR OPPOSITE TO CAMERA FACING
