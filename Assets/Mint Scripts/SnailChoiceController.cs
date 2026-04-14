@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SnailChoiceController : MonoBehaviour
 {
@@ -48,6 +49,7 @@ public class SnailChoiceController : MonoBehaviour
 
     public void ChooseNo()
     {
+        GameManager.Instance.saidNoToSnail = true;
         choicePanel.CloseChoice();
         snailState = 1;
 
@@ -58,6 +60,8 @@ public class SnailChoiceController : MonoBehaviour
     void EatSnail()
     {
         Destroy(gameObject);
+
+        SceneManager.LoadScene("EndingScene");
     }
 
     void ReturnPlayerToMainScene()

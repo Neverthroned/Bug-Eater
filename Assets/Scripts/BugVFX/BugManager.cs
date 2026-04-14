@@ -8,31 +8,36 @@ public class BugManager : MonoBehaviour
 
     public void StartBug(GameObject eatenBug)
     {
-        // Compare the eaten bug's name to known prefab names
-        // Unity appends "(Clone)" to instantiated prefabs, so we use Contains
-        if (SBugPrefab != null )
+        // Always get the ROOT object (important!)
+        GameObject rootBug = eatenBug.transform.root.gameObject;
+
+        // Identify type based on prefab name match
+        if (rootBug.name.Contains(SBugPrefab.name))
         {
             Debug.Log("Ate a Snail!");
             SnailVFX();
         }
-        else if (CBugPrefab != null && eatenBug.name.Contains(CBugPrefab.name))
+        else if (rootBug.name.Contains(CBugPrefab.name))
         {
             Debug.Log("Ate a Caterpillar!");
             CaterpillarVFX();
         }
         else
         {
-            Debug.LogWarning("Ate an unknown bug: " + eatenBug.name);
+            Debug.LogWarning("Ate an unknown bug: " + rootBug.name);
         }
+
+        // Destroy the whole bug (not just the child collider)
+        Destroy(rootBug);
     }
 
     public void SnailVFX()
     {
-        // VFX logic here later
+        // VFX logic here
     }
 
     public void CaterpillarVFX()
     {
-        // VFX logic here later
+        // VFX logic here
     }
 }

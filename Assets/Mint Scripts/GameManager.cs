@@ -5,6 +5,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    public bool saidNoToSnail = false;
+
     public Vector3 returnPosition;
     public string returnScene;
 
