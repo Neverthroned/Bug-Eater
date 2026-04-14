@@ -10,6 +10,16 @@ public class DialogueTrigger : MonoBehaviour, Interactable
     [Header("Prompt")]
     [SerializeField] private string interactPrompt = "Press E to talk";
 
+    //for dialogue_choices
+    [Header("Optional Choice After Dialogue")]
+    public bool showChoiceAfterDialogue = false;
+    public ChoicePanelController choicePanel;
+
+
+    // for a very special snail
+    [Header("Optional Snail Controller")]
+    public SnailChoiceController snailController;
+
     // Whether the player is close enough (inside the trigger collider)
     private bool playerInRange = false;
 
@@ -25,10 +35,20 @@ public class DialogueTrigger : MonoBehaviour, Interactable
 
         DialogueManager manager = FindFirstObjectByType<DialogueManager>();
 
-        // Opens dialogue, if dialogue is already open, display the next sentence upon interact button being pressed
         if (manager.IsOpen())
+        {
             manager.DisplayNextSentence();
-        else
-            manager.StartDialogue(dialogue);
+            return;
+        }
+
+        // If this NPC has a snail controller, use it instead
+        if (snailController != null)
+        {
+            snailController.StartSnailConversation();
+            return;
+        }
+
+        // normal NPC behaviour
+        manager.StartDialogue(dialogue);
     }
 }

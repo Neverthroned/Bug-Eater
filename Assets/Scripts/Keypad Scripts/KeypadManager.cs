@@ -21,12 +21,35 @@ public class KeypadManager : MonoBehaviour
     //sets public for timer healthbar variable
     public TimerHealthBar timerHealthBar;
 
+    //helps with keypad button glow
+    KeypadButtonGlow[] allButtons;
+
+    [Header("Keypad Hint Images")]
+    public GameObject[] hintImages; // drag 4 UI images here
+
+    private bool[] unlockedHints;
+
     // Sets keypad to off on start and finds player scripts in order to freeze the player
     void Start()
     {
         keypadPanel.SetActive(false);
         playerMovement = FindFirstObjectByType<PlayerWalk>();
         playerCam = FindFirstObjectByType<PlayerCam>();
+
+        //determines which hints have been unlocked
+        unlockedHints = new bool[hintImages.Length];
+
+        // hide all hints at game start
+        foreach (var img in hintImages)
+            img.SetActive(false);
+    }
+
+    void UpdateHintUI()
+    {
+        for (int i = 0; i < hintImages.Length; i++)
+        {
+            hintImages[i].SetActive(unlockedHints[i]);
+        }
     }
 
     // Starts keypad and freezes player
@@ -35,10 +58,13 @@ public class KeypadManager : MonoBehaviour
         freeze = true;
         currentInput = ""; // resets password input
 
+        UpdateHintUI(); 
+
         playerMovement?.SetFreeze(true);
         playerCam?.SetFreeze(true);
 
         keypadPanel.SetActive(true);
+        allButtons = keypadPanel.GetComponentsInChildren<KeypadButtonGlow>(true);
 
         //Show the mouse for the player
         Cursor.visible = true;
@@ -47,6 +73,9 @@ public class KeypadManager : MonoBehaviour
         //timerHealthbar_pause
         if (timerHealthBar != null)
             timerHealthBar.PauseTimer();
+
+        //resets the button
+        ResetButtons();
     }
 
     //called by each button, what really makes the keypad work!
@@ -64,18 +93,49 @@ public class KeypadManager : MonoBehaviour
         }
     }
 
+    //unlocks the hints
+    public void UnlockHint(int hintIndex)
+    {
+        if (hintIndex < 0 || hintIndex >= unlockedHints.Length)
+            return;
+
+        unlockedHints[hintIndex] = true;
+        Debug.Log("Unlocked keypad hint #" + hintIndex);
+    }
+
     private void CheckCode()
     {
         if (currentInput == correctCode)
         {
             Debug.Log("Correct password!");
-            EndKeypad();
+
+            // Save where player should return
+            GameManager.Instance.returnSceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+            GameManager.Instance.returnPosition = playerMovement.transform.position;
+
+            // Load snail scene
+            UnityEngine.SceneManagement.SceneManager.LoadScene("SnailScene");
         }
         else
         {
             Debug.Log("Wrong password, try again.");
+            WrongPassword();       //  flash red
             currentInput = "";
         }
+    }
+
+    //handles if the password is wrong
+    void WrongPassword()
+    {
+        foreach (var btn in allButtons)
+            btn.ErrorGlow();
+    }
+
+    //if password is right.
+    void ResetButtons()
+    {
+        foreach (var btn in allButtons)
+            btn.ResetGlow();
     }
 
     // Optional clear button
@@ -91,7 +151,7 @@ public class KeypadManager : MonoBehaviour
         EndKeypad();
     }
 
-    void EndKeypad()
+    public void EndKeypad()
     {
         freeze = false;
         playerMovement?.SetFreeze(false);

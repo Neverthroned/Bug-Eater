@@ -35,6 +35,8 @@ public class NarrativeTrigger : MonoBehaviour, Interactable
 
         NarrativeManager manager = FindFirstObjectByType<NarrativeManager>();
 
+        GetComponent<HintUnlock>()?.UnlockHint();
+
         if (manager.IsOpen())
             manager.ExitNarrative();
         else

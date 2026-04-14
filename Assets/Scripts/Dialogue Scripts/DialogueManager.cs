@@ -23,6 +23,9 @@ public class DialogueManager : MonoBehaviour
     private PlayerWalk playerMovement;
     private PlayerCam playerCam;
 
+    // Optional callback when dialogue finishes (used by special NPCs)
+    private System.Action onDialogueFinished;
+
     //sets public for timer healthbar variable
     public TimerHealthBar timerHealthBar;
 
@@ -34,9 +37,11 @@ public class DialogueManager : MonoBehaviour
     }
 
     // Starts dialogue and freezes player
-    public void StartDialogue(Dialogue dialogue)
+    public void StartDialogue(Dialogue dialogue, System.Action onFinished = null)
     {
         freeze = true;
+        onDialogueFinished = onFinished;
+
         playerMovement?.SetFreeze(true);
         playerCam?.SetFreeze(true);
 
@@ -106,6 +111,10 @@ public class DialogueManager : MonoBehaviour
 
         if (timerHealthBar != null)
             timerHealthBar.ResumeTimer();
+
+        //If a special NPC requested an action after dialogue, run it
+        onDialogueFinished?.Invoke();
+        onDialogueFinished = null;
     }
 
     public bool IsOpen() => dialoguePanel.activeSelf;
