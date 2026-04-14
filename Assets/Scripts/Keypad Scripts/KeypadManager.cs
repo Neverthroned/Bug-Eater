@@ -109,12 +109,19 @@ public class KeypadManager : MonoBehaviour
         {
             Debug.Log("Correct password!");
 
-            // Save where player should return
-            GameManager.Instance.returnSceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
-            GameManager.Instance.returnPosition = playerMovement.transform.position;
+            GameManager.Instance.returnScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
 
-            // Load snail scene
-            UnityEngine.SceneManagement.SceneManager.LoadScene("SnailScene");
+            if (player != null)
+            {
+                GameManager.Instance.returnPosition = player.transform.position;
+            }
+            else
+            {
+                Debug.LogError("Player not found when saving position!");
+            }
+
+            GameManager.Instance.LoadSnailScene();
         }
         else
         {

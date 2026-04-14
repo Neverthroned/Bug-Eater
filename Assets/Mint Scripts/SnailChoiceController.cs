@@ -1,77 +1,67 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
-
-IEnumerator ReturnAfterDialogue()
-{
-    // Wait until dialogue closes
-    while (dialogueManager.IsOpen())
-        yield return null;
-
-    // Load previous scene
-    SceneManager.LoadScene(GameManager.Instance.returnSceneName);
-}
 
 public class SnailChoiceController : MonoBehaviour
 {
     [Header("Dialogues")]
-    public Dialogue introDialogue;     // first time talking
-    public Dialogue yesDialogue;       // player eats snail
-    public Dialogue noDialogue;        // player refuses
+    public Dialogue introDialogue;
+    public Dialogue yesDialogue;
+    public Dialogue noDialogue;
 
     [Header("References")]
     public ChoicePanelController choicePanel;
+
     private DialogueManager dialogueManager;
 
     // 0 = first meeting
-    // 1 = refused before (loop state)
-    // 2 = eaten (finished)
+    // 1 = refused before
+    // 2 = eaten
     private int snailState = 0;
-
-    //bool for checking if the snail scene already played, for repeat attempts.
-    private bool introPlayed = false;
 
     void Start()
     {
         dialogueManager = FindFirstObjectByType<DialogueManager>();
     }
 
-    // Called by DialogueTrigger instead of normal StartDialogue
+    // Called by DialogueTrigger
     public void StartSnailConversation()
     {
-        if (GameManager.Instance.snailIntroSeen)
-        {
-            // Skip straight to choice if already talked before
-            choicePanel.SetActive(true);
-            return;
-        }
+        if (snailState == 2) return;
 
-        dialogueManager.StartDialogue(introDialogue);
-        StartCoroutine(WaitForDialogueThenShowChoice());
+        if (snailState == 0)
+        {
+            dialogueManager.StartDialogue(introDialogue, choicePanel.ShowChoice);
+        }
+        else if (snailState == 1)
+        {
+            choicePanel.ShowChoice();
+        }
     }
 
-    // YES button will call this
     public void ChooseYes()
     {
-        GameManager.Instance.snailIntroSeen = true;
-        choicePanel.SetActive(false);
+        choicePanel.CloseChoice();
+        snailState = 2;
 
-        dialogueManager.StartDialogue(yesDialogue);
-        Destroy(gameObject, 2f); // snail eaten 
+        // After dialogue eat snail
+        dialogueManager.StartDialogue(yesDialogue, EatSnail);
     }
 
-    // NO button will call this
     public void ChooseNo()
     {
-        GameManager.Instance.snailIntroSeen = true;
-        choicePanel.SetActive(false);
+        choicePanel.CloseChoice();
+        snailState = 1;
 
-        dialogueManager.StartDialogue(noDialogue);
-        StartCoroutine(ReturnAfterDialogue());
+        // After dialogue return to previous scene
+        dialogueManager.StartDialogue(noDialogue, ReturnPlayerToMainScene);
     }
-}
 
     void EatSnail()
     {
         Destroy(gameObject);
+    }
+
+    void ReturnPlayerToMainScene()
+    {
+        GameManager.Instance.ReturnToPreviousScene();
     }
 }

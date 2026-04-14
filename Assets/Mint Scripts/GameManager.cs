@@ -1,15 +1,12 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    [Header("Return Location")]
-    public string returnSceneName;
     public Vector3 returnPosition;
-
-    [Header("Snail State")]
-    public bool snailIntroSeen = false;
+    public string returnScene;
 
     void Awake()
     {
@@ -22,5 +19,15 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void LoadSnailScene()
+    {
+        SceneManager.LoadScene("SnailScene");
+    }
+
+    public void ReturnToPreviousScene()
+    {
+        SceneManager.LoadScene(returnScene);
     }
 }
