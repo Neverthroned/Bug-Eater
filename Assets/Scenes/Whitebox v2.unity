@@ -3623,7 +3623,7 @@ GameObject:
   - component: {fileID: 136440782}
   - component: {fileID: 136440781}
   m_Layer: 5
-  m_Name: TestImage
+  m_Name: CaterpillarImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3643,10 +3643,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 665877540}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1920, y: 1080}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &136440781
 MonoBehaviour:
@@ -3660,8 +3660,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RawImage
-  m_Material: {fileID: 2100000, guid: a3deeac23d5b80e44b53b34048d990ee, type: 2}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.36862746}
+  m_Material: {fileID: 2100000, guid: 6d8af520436c82a478d2b179eb3b1181, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6773,10 +6773,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 665877540}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1920, y: 1080}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &285765369
 MonoBehaviour:
@@ -17542,6 +17542,7 @@ RectTransform:
   m_Children:
   - {fileID: 285765368}
   - {fileID: 136440780}
+  - {fileID: 1324410091}
   - {fileID: 1548570989}
   - {fileID: 555529625}
   - {fileID: 1930848061}
@@ -34628,6 +34629,78 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 7286963873906345894, guid: 20d3b1491d791384a9896a766784f57b, type: 3}
+--- !u!1 &1324410090
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1324410091}
+  - component: {fileID: 1324410093}
+  - component: {fileID: 1324410092}
+  m_Layer: 5
+  m_Name: SnailImage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1324410091
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1324410090}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 665877540}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1324410092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1324410090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RawImage
+  m_Material: {fileID: 2100000, guid: 0b342571ef9658747a072a37f6e172e0, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 8400000, guid: 091ce68195fbbc54baff5370233c2afc, type: 2}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+--- !u!222 &1324410093
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1324410090}
+  m_CullTransparentMesh: 1
 --- !u!1 &1332403219
 GameObject:
   m_ObjectHideFlags: 0
@@ -35685,10 +35758,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BugManager
   CBugPrefab: {fileID: 3354192990529270845, guid: d44eb186f2985e749a43346f00dbbdfe, type: 3}
   SBugPrefab: {fileID: 1125117770249921690, guid: 9cc863823fa4b864dad3dcc1e63a0bdf, type: 3}
-  SBugVFXOverlay: {fileID: 136440781}
-  CBugVFXOverlay: {fileID: 0}
+  SBugVFXOverlay: {fileID: 1324410092}
+  CBugVFXOverlay: {fileID: 136440781}
   fadeDuration: 1
-  holdDuration: 2
+  sHoldDuration: 2
+  cHoldDuration: 2
 --- !u!1 &1370573893
 GameObject:
   m_ObjectHideFlags: 0

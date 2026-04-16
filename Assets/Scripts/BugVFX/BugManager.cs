@@ -14,7 +14,8 @@ public class BugManager : MonoBehaviour
 
     [Header("VFX Settings")]
     public float fadeDuration = 1f;      // How long the fade in/out takes
-    public float holdDuration = 2f;      // How long the effect stays at full opacity
+    public float sHoldDuration = 2f;      // How long the effect stays at full opacity
+    public float cHoldDuration = 2f;
 
     private void Start()
     {
@@ -56,7 +57,7 @@ public class BugManager : MonoBehaviour
     IEnumerator SFadeIn()
     {
         yield return StartCoroutine(FadeOverlay(SBugVFXOverlay, 0f, 1f, fadeDuration));
-        yield return new WaitForSeconds(holdDuration);
+        yield return new WaitForSeconds(sHoldDuration);
         StartCoroutine(SFadeOut());
     }
 
@@ -69,14 +70,14 @@ public class BugManager : MonoBehaviour
 
     IEnumerator CFadeIn()
     {
-        yield return StartCoroutine(FadeOverlay(CBugVFXOverlay, 0f, 1f, fadeDuration));
-        yield return new WaitForSeconds(holdDuration);
+        yield return StartCoroutine(FadeOverlay(CBugVFXOverlay, 0f, 0.2f, fadeDuration));
+        yield return new WaitForSeconds(cHoldDuration);
         StartCoroutine(CFadeOut());
     }
 
     IEnumerator CFadeOut()
     {
-        yield return StartCoroutine(FadeOverlay(CBugVFXOverlay, 1f, 0f, fadeDuration));
+        yield return StartCoroutine(FadeOverlay(CBugVFXOverlay, 0.2f, 0f, fadeDuration));
     }
 
     // --- Shared Utility ---
