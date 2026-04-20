@@ -25,11 +25,11 @@ public class GameManager : MonoBehaviour
 
     public void LoadSnailScene()
     {
-        SceneManager.LoadScene("SnailScene");
+        SceneFadeManager.Instance.FadeToScene("SnailScene");
     }
 
     public void ReturnToPreviousScene()
     {
-        SceneManager.LoadScene(returnScene);
+        SceneFadeManager.Instance.FadeToScene(returnScene);
     }
 }

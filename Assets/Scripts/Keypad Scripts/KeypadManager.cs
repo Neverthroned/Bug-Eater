@@ -156,6 +156,7 @@ public class KeypadManager : MonoBehaviour
     public void ExitKeypad()
     {
         EndKeypad();
+
     }
 
     public void EndKeypad()
@@ -174,6 +175,8 @@ public class KeypadManager : MonoBehaviour
 
         if (timerHealthBar != null)
             timerHealthBar.ResumeTimer();
+
+        FindFirstObjectByType<PlayerInteraction>().EndInteraction();
     }
     public bool IsOpen() => keypadPanel.activeSelf;
 }

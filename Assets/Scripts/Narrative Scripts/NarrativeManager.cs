@@ -60,6 +60,8 @@ public class NarrativeManager : MonoBehaviour
 
         if (timerHealthBar != null)
             timerHealthBar.ResumeTimer();
+
+        FindFirstObjectByType<PlayerInteraction>().EndInteraction();
     }
     public bool IsOpen() => narrativePanel.activeSelf;
 }

@@ -7,10 +7,15 @@ public class ChoicePanelController : MonoBehaviour
     PlayerWalk playerMovement;
     PlayerCam playerCam;
 
+
+    //player interaction to prevent e to interact
+    PlayerInteraction playerInteraction;
+
     void Start()
     {
         playerMovement = FindFirstObjectByType<PlayerWalk>();
         playerCam = FindFirstObjectByType<PlayerCam>();
+        playerInteraction = FindFirstObjectByType<PlayerInteraction>();
 
         choicePanel.SetActive(false);
     }
@@ -28,7 +33,7 @@ public class ChoicePanelController : MonoBehaviour
 
     }
 
-    public void CloseChoice()
+    public void CloseChoiceResumeGameplay()
     {
         choicePanel.SetActive(false);
 
@@ -37,6 +42,18 @@ public class ChoicePanelController : MonoBehaviour
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        // Gameplay resumes  interaction ends
+        playerInteraction?.EndInteraction();
+    }
+
+    public void CloseChoiceContinueInteraction()
+    {
+        choicePanel.SetActive(false);
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
 
     }
 }

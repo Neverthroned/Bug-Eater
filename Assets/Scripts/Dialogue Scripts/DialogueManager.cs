@@ -115,6 +115,7 @@ public class DialogueManager : MonoBehaviour
         //If a special NPC requested an action after dialogue, run it
         onDialogueFinished?.Invoke();
         onDialogueFinished = null;
+
     }
 
     public bool IsOpen() => dialoguePanel.activeSelf;

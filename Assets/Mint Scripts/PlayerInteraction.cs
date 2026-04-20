@@ -19,6 +19,9 @@ public class PlayerInteraction : MonoBehaviour
     private Camera cam;
     private Interactable currentInteractable;
 
+    //bool for determining when an inyteraction is happening
+    private bool isInteracting = false;
+
     void Awake()
     {
         
@@ -54,6 +57,14 @@ public class PlayerInteraction : MonoBehaviour
     // Racast function and interact UI
     void CheckForInteractable()
     {
+
+        // Do not show prompt while interacting
+        if (isInteracting)
+        {
+            interactPromptUI.SetActive(false);
+            return;
+        }
+
         // Raycast
         Ray ray = new Ray(cam.transform.position, cam.transform.forward);
 
@@ -75,8 +86,20 @@ public class PlayerInteraction : MonoBehaviour
 
     private void OnInteract(InputAction.CallbackContext ctx)
     {
+        if (currentInteractable == null) return;
+
         // Input manager implementation (e to interact button functionality)
         Debug.Log("Interact input fired");
+
+        isInteracting = true;
+        interactPromptUI.SetActive(false);
+
         currentInteractable?.Interact();
     }
+
+    public void EndInteraction()
+    {
+        isInteracting = false;
+    }
+
 }

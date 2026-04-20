@@ -3,8 +3,28 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    public GameObject TitleMenuUI;
+    public GameObject aboutTitlePanel;
     public void StartGame()
     {
-        SceneManager.LoadScene("Whitebox v2");
+        SceneFadeManager.Instance.FadeToScene("Whitebox v2");
+    }
+
+    public void ShowTitleAbout()
+    {
+        TitleMenuUI.SetActive(false);
+        aboutTitlePanel.SetActive(true);
+    }
+
+    public void BackButton()
+    {
+        TitleMenuUI.SetActive(true);
+        aboutTitlePanel.SetActive(false);
+    }
+    public void QuitGame()
+    {
+        Debug.Log("game closed!");
+
+        Application.Quit();
     }
 }

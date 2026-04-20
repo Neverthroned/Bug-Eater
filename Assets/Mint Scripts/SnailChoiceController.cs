@@ -40,7 +40,7 @@ public class SnailChoiceController : MonoBehaviour
 
     public void ChooseYes()
     {
-        choicePanel.CloseChoice();
+        choicePanel.CloseChoiceContinueInteraction();
         snailState = 2;
 
         // After dialogue eat snail
@@ -50,7 +50,7 @@ public class SnailChoiceController : MonoBehaviour
     public void ChooseNo()
     {
         GameManager.Instance.saidNoToSnail = true;
-        choicePanel.CloseChoice();
+        choicePanel.CloseChoiceContinueInteraction();
         snailState = 1;
 
         // After dialogue return to previous scene
@@ -61,11 +61,13 @@ public class SnailChoiceController : MonoBehaviour
     {
         Destroy(gameObject);
 
-        SceneManager.LoadScene("EndingScene");
+        SceneFadeManager.Instance.FadeToScene("EndingScene");
     }
 
     void ReturnPlayerToMainScene()
     {
         GameManager.Instance.ReturnToPreviousScene();
+
+        FindFirstObjectByType<PlayerInteraction>().EndInteraction();
     }
 }

@@ -8,8 +8,6 @@ public class NarrativeTrigger : MonoBehaviour, Interactable
     [Header("Narrative")]
     [SerializeField] private Sprite narrativeImage;
 
-    [Header("Audio")]
-    [SerializeField] private AudioClip interactSound;
 
     private AudioSource audioSource;
 
@@ -17,11 +15,10 @@ public class NarrativeTrigger : MonoBehaviour, Interactable
     private bool playerInRange = false;
 
     // When player in range give interact prompt (and allow player to interact)
-    void Awake()
-    {
-        audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.playOnAwake = false;
-    }
+   // void Awake()
+   // {
+
+   // }
 
     public string GetPrompt()
     {
@@ -41,9 +38,6 @@ public class NarrativeTrigger : MonoBehaviour, Interactable
             manager.ExitNarrative();
         else
         {
-            if (interactSound != null)
-                audioSource.PlayOneShot(interactSound);
-
             manager.StartNarrative(narrativeImage);
         }
     }
