@@ -31,9 +31,8 @@ public class DialogueTrigger : MonoBehaviour, Interactable
 
     public void Interact()
     {
-        Debug.Log("Interact pressed");
-
         DialogueManager manager = FindFirstObjectByType<DialogueManager>();
+        EatObject eater = GetComponent<EatObject>();
 
         if (manager.IsOpen())
         {
@@ -41,14 +40,25 @@ public class DialogueTrigger : MonoBehaviour, Interactable
             return;
         }
 
-        // If this NPC has a snail controller, use it instead
-        if (snailController != null)
+        // Snail with choice system
+        if (snailController != null && showChoiceAfterDialogue)
         {
             snailController.StartSnailConversation();
             return;
         }
 
-        // normal NPC behaviour
+        // Everything else: dialogue then eat
+        if (eater != null)
+        {
+            manager.StartDialogue(dialogue, () =>
+            {
+                eater.Interact();
+                FindFirstObjectByType<PlayerInteraction>()?.EndInteraction();
+            });
+            return;
+        }
+
+        // fallback
         manager.StartDialogue(dialogue);
     }
 }

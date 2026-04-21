@@ -27,7 +27,7 @@ public class BugManager : MonoBehaviour
         }
 
         // Destroy the whole bug (not just the child collider)
-        
+        Destroy(root);
     }
 
     public void SnailVFX()

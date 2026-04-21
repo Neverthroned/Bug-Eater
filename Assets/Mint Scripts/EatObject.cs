@@ -13,10 +13,7 @@ public class EatObject : MonoBehaviour, Interactable
 
     public void Interact()
     {
-        Debug.Log("Interact pressed");
-
-        // FIRST: unlock interaction immediately
-        FindFirstObjectByType<PlayerInteraction>()?.EndInteraction();
+        Debug.Log("Bug eaten");
 
         BugManager manager = FindFirstObjectByType<BugManager>();
 

@@ -59,6 +59,8 @@ public class SnailChoiceController : MonoBehaviour
 
     void EatSnail()
     {
+        FindFirstObjectByType<PlayerInteraction>()?.EndInteraction();
+
         Destroy(gameObject);
 
         SceneFadeManager.Instance.FadeToScene("EndingScene");

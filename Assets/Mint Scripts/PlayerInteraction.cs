@@ -79,6 +79,11 @@ public class PlayerInteraction : MonoBehaviour
             }
         }
 
+        if (currentInteractable == null)
+        {
+            EndInteraction();
+            return;
+        }
         // If not in range (no raycast hit) set to off
         currentInteractable = null;
         interactPromptUI.SetActive(false);
@@ -86,28 +91,22 @@ public class PlayerInteraction : MonoBehaviour
 
     private void OnInteract(InputAction.CallbackContext ctx)
     {
-        if (currentInteractable == null) return;
-
-        // Input manager implementation (e to interact button functionality)
-        Debug.Log("Interact input fired");
+        if (currentInteractable == null)
+            return;
 
         isInteracting = true;
         interactPromptUI.SetActive(false);
-
-        if (currentInteractable == null)
-        {
-            EndInteraction();
-            return;
-        }
 
         currentInteractable.Interact();
     }
 
     public void EndInteraction()
     {
-        isInteracting = false;   
+        isInteracting = false;
         currentInteractable = null;
         interactPromptUI.SetActive(false);
     }
+
+    
 
 }

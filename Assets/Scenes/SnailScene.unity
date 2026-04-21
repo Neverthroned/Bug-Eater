@@ -466,6 +466,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Snail
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f9ba02f50a78a1f4d9e9274e3d1ae6da, type: 3}
+      propertyPath: m_TagString
+      value: Snail
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -1992,7 +1996,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &824517968
 MonoBehaviour:
   m_ObjectHideFlags: 0
