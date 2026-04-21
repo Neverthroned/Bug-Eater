@@ -94,12 +94,20 @@ public class PlayerInteraction : MonoBehaviour
         isInteracting = true;
         interactPromptUI.SetActive(false);
 
-        currentInteractable?.Interact();
+        if (currentInteractable == null)
+        {
+            EndInteraction();
+            return;
+        }
+
+        currentInteractable.Interact();
     }
 
     public void EndInteraction()
     {
-        isInteracting = false;
+        isInteracting = false;   
+        currentInteractable = null;
+        interactPromptUI.SetActive(false);
     }
 
 }

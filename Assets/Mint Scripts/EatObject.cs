@@ -14,19 +14,22 @@ public class EatObject : MonoBehaviour, Interactable
     public void Interact()
     {
         Debug.Log("Interact pressed");
+
+        // FIRST: unlock interaction immediately
+        FindFirstObjectByType<PlayerInteraction>()?.EndInteraction();
+
         BugManager manager = FindFirstObjectByType<BugManager>();
 
-        //resets the timer
         if (timerHealthBar != null)
-        timerHealthBar.StartMetabolism();
-        timerHealthBar.ResetTimer();
+        {
+            timerHealthBar.StartMetabolism();
+            timerHealthBar.ResetTimer();
+        }
 
         if (manager != null)
-            manager.StartBug(gameObject);  // Send bug type to the manager
+            manager.StartBug(gameObject);
 
-        Destroy(gameObject);
-
-
+        Destroy(transform.root.gameObject);
     }
 
     public string GetPrompt()

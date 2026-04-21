@@ -8,27 +8,26 @@ public class BugManager : MonoBehaviour
 
     public void StartBug(GameObject eatenBug)
     {
-        // Always get the ROOT object (important!)
-        GameObject rootBug = eatenBug.transform.root.gameObject;
+        GameObject root = eatenBug.transform.root.gameObject;
 
-        // Identify type based on prefab name match
-        if (rootBug.name.Contains(SBugPrefab.name))
+        if (root.CompareTag("Snail"))
         {
             Debug.Log("Ate a Snail!");
             SnailVFX();
         }
-        else if (rootBug.name.Contains(CBugPrefab.name))
+        else if (root.CompareTag("Caterpillar"))
         {
             Debug.Log("Ate a Caterpillar!");
             CaterpillarVFX();
         }
         else
         {
-            Debug.LogWarning("Ate an unknown bug: " + rootBug.name);
+            Debug.LogWarning("Ate an unknown bug: " + root.name);
+
         }
 
         // Destroy the whole bug (not just the child collider)
-        Destroy(rootBug);
+        
     }
 
     public void SnailVFX()
