@@ -26,6 +26,8 @@ public class EatObject : MonoBehaviour, Interactable
         if (manager != null)
             manager.StartBug(gameObject);
 
+
+        PlayerAudio.Instance.PlayEatSound();
         Destroy(transform.root.gameObject);
     }
 
