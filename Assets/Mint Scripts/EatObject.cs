@@ -28,6 +28,9 @@ public class EatObject : MonoBehaviour, Interactable
 
 
         PlayerAudio.Instance.PlayEatSound();
+
+        FindFirstObjectByType<PlayerInteraction>()?.EndInteraction();
+
         Destroy(transform.root.gameObject);
     }
 

@@ -8,17 +8,16 @@ public class NarrativeTrigger : MonoBehaviour, Interactable
     [Header("Narrative")]
     [SerializeField] private Sprite narrativeImage;
 
+    [Header("Audio")]
+    [SerializeField] private AudioClip pickupSound;
 
-    private AudioSource audioSource;
+
 
     // Whether the player is close enough (inside the trigger collider)
     private bool playerInRange = false;
 
     // When player in range give interact prompt (and allow player to interact)
-   // void Awake()
-   // {
 
-   // }
 
     public string GetPrompt()
     {
@@ -30,6 +29,12 @@ public class NarrativeTrigger : MonoBehaviour, Interactable
     {
         Debug.Log("Interact pressed");
 
+        // SAFE PICKUP SOUND (always works)
+        if (pickupSound != null)
+        {
+            AudioSource.PlayClipAtPoint(pickupSound, transform.position);
+        }
+
         NarrativeManager manager = FindFirstObjectByType<NarrativeManager>();
 
         GetComponent<HintUnlock>()?.UnlockHint();
@@ -37,8 +42,6 @@ public class NarrativeTrigger : MonoBehaviour, Interactable
         if (manager.IsOpen())
             manager.ExitNarrative();
         else
-        {
             manager.StartNarrative(narrativeImage);
-        }
     }
 }

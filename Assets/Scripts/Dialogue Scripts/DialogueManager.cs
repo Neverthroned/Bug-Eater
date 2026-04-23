@@ -14,6 +14,10 @@ public class DialogueManager : MonoBehaviour
     [Header("Typewriter Settings")]
     public float typewriterSpeed = 0.04f;  // seconds per character
 
+    [Header("Dialogue Audio")]
+    public AudioSource dialogueAudioSource;
+    public AudioClip snailVoiceClip;
+
     private Queue<string> sentences = new();
     private bool isTyping = false;
     private Coroutine typingCoroutine;
@@ -79,6 +83,13 @@ public class DialogueManager : MonoBehaviour
         }
 
         currentSentence = sentences.Dequeue();
+
+        // Play dialogue voice sound once per sentence
+        if (dialogueAudioSource != null && snailVoiceClip != null)
+        {
+            dialogueAudioSource.PlayOneShot(snailVoiceClip);
+        }
+
         typingCoroutine = StartCoroutine(TypeSentence(currentSentence));
     }
 

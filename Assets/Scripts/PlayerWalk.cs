@@ -28,6 +28,10 @@ public class PlayerWalk : MonoBehaviour
     private Rigidbody rb;
 
 
+    //bool to help with player movement sounds
+    private bool wasMovingLastFrame = false;
+
+
     private void OnEnable()
     {
         // Find and enable input actions
@@ -94,6 +98,7 @@ public class PlayerWalk : MonoBehaviour
         currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, Acceleration * Time.fixedDeltaTime);
 
         Walking();
+        CheckFootsteps();
     }
 
     private void Walking()
@@ -134,5 +139,28 @@ public class PlayerWalk : MonoBehaviour
                 );
             }
         }
+  
+    }
+
+    private void CheckFootsteps()
+    {
+        if (isFrozen)
+        {
+            PlayerAudio.Instance.StopFootsteps();
+            return;
+        }
+
+        bool isMoving = m_moveAmt.magnitude > 0.1f;
+
+        if (isMoving && !wasMovingLastFrame)
+        {
+            PlayerAudio.Instance.StartFootsteps();
+        }
+        else if (!isMoving && wasMovingLastFrame)
+        {
+            PlayerAudio.Instance.StopFootsteps();
+        }
+
+        wasMovingLastFrame = isMoving;
     }
 }
