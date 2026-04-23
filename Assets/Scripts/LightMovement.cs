@@ -71,9 +71,6 @@ public class WanderingAI : MonoBehaviour
         // Calculate distance to light spawn
         float distanceToSpawn = Vector3.Distance(transform.position, spawn.position);
 
-        Debug.Log($"Distance to player: {distanceToPlayer} | Chase range: {chaseRange} | Distance to spawn: {distanceToSpawn} | Movement range: {movementRange}");
-        Debug.Log($"Enemy position: {transform.position} | Player position: {player.position}");
-
         if (distanceToSpawn > movementRange)
         {
             ReturnToSpawn();

@@ -36,13 +36,39 @@ public class NarrativeTrigger : MonoBehaviour, Interactable
         NarrativeManager manager = FindFirstObjectByType<NarrativeManager>();
 
         if (manager.IsOpen())
+        {
             manager.ExitNarrative();
+            HideOthersWithSameTag();
+        }
         else
         {
             if (interactSound != null)
                 audioSource.PlayOneShot(interactSound);
+            manager.StartNarrative(narrativeImage);  
+        }
+    }
 
-            manager.StartNarrative(narrativeImage);
+    public void HideOthersWithSameTag()
+    {
+        // Store this object's tag
+        string tag = gameObject.tag;
+
+        // Find all objects with the same tag
+        GameObject[] taggedObjects = GameObject.FindGameObjectsWithTag(tag);
+
+        foreach (GameObject obj in taggedObjects)
+        {
+            // Skip this object
+            if (obj == gameObject) continue;
+
+            // Hide the object by disabling its Renderer(s)
+            Renderer[] renderers = obj.GetComponentsInChildren<Renderer>(true);
+            foreach (Renderer r in renderers)
+            {
+                r.enabled = false;
+            }
+            //gameObject.SetActive(false);
+            //Destroy(gameObject);
         }
     }
 }
