@@ -34,6 +34,8 @@ public class WanderingAI : MonoBehaviour
     private NavMeshAgent agent;
     private float timer;
 
+    private Vector3 wanderTarget;
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -50,41 +52,52 @@ public class WanderingAI : MonoBehaviour
         {
             spawn = GameObject.FindGameObjectWithTag("LightSpawner").transform;
         }
+
+        wanderTarget = transform.position; // initialize to starting position
     }
 
     void Update()
     {
         timer += Time.deltaTime;
 
-        // If AI has reached its destination or timer expired, pick a new point
-        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
+        if (player == null)
         {
-            if (timer >= wanderDelay)
-            {
-                Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, NavMesh.AllAreas);
-                agent.SetDestination(newPos);
-                timer = 0;
-            }
+            Debug.Log("Player is null!");
+            return;
         }
-
-        if (player == null) return;
 
         // Calculate distance to player
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
         // Calculate distance to light spawn
         float distanceToSpawn = Vector3.Distance(transform.position, spawn.position);
 
-        // Chase if within range
-        if (distanceToPlayer <= chaseRange)
-        {
-            ChasePlayer();
-        }
+        Debug.Log($"Distance to player: {distanceToPlayer} | Chase range: {chaseRange} | Distance to spawn: {distanceToSpawn} | Movement range: {movementRange}");
+        Debug.Log($"Enemy position: {transform.position} | Player position: {player.position}");
 
         if (distanceToSpawn > movementRange)
         {
             ReturnToSpawn();
         }
-        
+        // Chase if within range
+        else if (distanceToPlayer <= chaseRange)
+        {
+            ChasePlayer();
+        }
+        else if (timer >= wanderDelay)
+        {
+            wanderTarget = RandomNavSphere(transform.position, wanderRadius, NavMesh.AllAreas);
+            agent.SetDestination(wanderTarget);
+            timer = 0;
+        }
+
+        if (distanceToPlayer < 1)
+        {
+            moveSpeed = 10;
+        }
+        else
+        {
+            moveSpeed = 100;
+        }
     }
 
     public static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
@@ -104,26 +117,12 @@ public class WanderingAI : MonoBehaviour
 
     void ChasePlayer()
     {
-        // Direction toward the player
-        Vector3 direction = (player.position - transform.position).normalized;
-
-        // Move enemy toward player
-        transform.position += direction * moveSpeed * Time.deltaTime;
-
-        // Optional: Rotate enemy to face player
-        transform.LookAt(player);
+        agent.SetDestination(player.position);
     }
 
     void ReturnToSpawn()
     {
-        // Direction toward the spawn
-        Vector3 direction = (spawn.position - transform.position).normalized;
-
-        // Move enemy toward spawn
-        transform.position += direction * moveSpeed * Time.deltaTime;
-
-        // Optional: Rotate enemy to face spawn
-        transform.LookAt(spawn);
+        agent.SetDestination(spawn.position);
     }
 
     // Draw chase range and movement range in editor for easy debugging
