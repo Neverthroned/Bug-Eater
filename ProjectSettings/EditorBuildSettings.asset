@@ -12,8 +12,8 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 83002e2a6f8c9b24b8fbf062aeae42eb
   - enabled: 1
-    path: Assets/Scenes/Whitebox v2.unity
-    guid: 891c8ed2bc5aa6c489d66243ea887c39
+    path: Assets/Scenes/Mint_Whitebox_V3.unity
+    guid: 4421ad48f8c457e46ae0ea9255ad763c
   - enabled: 1
     path: Assets/Scenes/SnailScene.unity
     guid: 1d3e2c768f796e1499d0ab2e79c111c7

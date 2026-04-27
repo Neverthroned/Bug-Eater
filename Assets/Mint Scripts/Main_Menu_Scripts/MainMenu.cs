@@ -7,7 +7,7 @@ public class MainMenu : MonoBehaviour
     public GameObject aboutTitlePanel;
     public void StartGame()
     {
-        SceneFadeManager.Instance.FadeToScene("Whitebox v2");
+        SceneFadeManager.Instance.FadeToScene("Mint_Whitebox_V3");
     }
 
     public void ShowTitleAbout()

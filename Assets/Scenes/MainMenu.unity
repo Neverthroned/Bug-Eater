@@ -1952,7 +1952,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   saidNoToSnail: 0
   returnPosition: {x: 0, y: 0, z: 0}
-  returnScene: Whitebox v2
+  returnScene: Mint_Whitebox_V3
 --- !u!4 &1823827924
 Transform:
   m_ObjectHideFlags: 0

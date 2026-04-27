@@ -27,6 +27,12 @@ public class KeypadManager : MonoBehaviour
     [Header("Keypad Hint Images")]
     public GameObject[] hintImages; // drag 4 UI images here
 
+    [Header("Audio")]
+    [SerializeField] private AudioClip correctSound;
+    [SerializeField] private AudioClip wrongSound;
+
+    private AudioSource audioSource;
+
     private bool[] unlockedHints;
 
     // Sets keypad to off on start and finds player scripts in order to freeze the player
@@ -42,6 +48,15 @@ public class KeypadManager : MonoBehaviour
         // hide all hints at game start
         foreach (var img in hintImages)
             img.SetActive(false);
+
+
+        audioSource = GetComponent<AudioSource>();
+
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
+
+        audioSource.playOnAwake = false;
+        audioSource.spatialBlend = 0f; // 2D UI sound
     }
 
     void UpdateHintUI()
@@ -121,11 +136,19 @@ public class KeypadManager : MonoBehaviour
                 Debug.LogError("Player not found when saving position!");
             }
 
+            if (correctSound != null)
+                audioSource.PlayOneShot(correctSound);
+
             GameManager.Instance.LoadSnailScene();
         }
         else
         {
             Debug.Log("Wrong password, try again.");
+
+            // PLAY FAIL SOUND
+            if (wrongSound != null)
+                audioSource.PlayOneShot(wrongSound);
+
             WrongPassword();       //  flash red
             currentInput = "";
         }
