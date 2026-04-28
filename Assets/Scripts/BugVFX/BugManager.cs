@@ -56,14 +56,14 @@ public class BugManager : MonoBehaviour
 
     IEnumerator SFadeIn()
     {
-        yield return StartCoroutine(FadeOverlay(SBugVFXOverlay, 0f, 1f, fadeDuration));
+        yield return StartCoroutine(FadeOverlay(SBugVFXOverlay, 0f, 0.3f, fadeDuration));
         yield return new WaitForSeconds(sHoldDuration);
         StartCoroutine(SFadeOut());
     }
 
     IEnumerator SFadeOut()
     {
-        yield return StartCoroutine(FadeOverlay(SBugVFXOverlay, 1f, 0f, fadeDuration));
+        yield return StartCoroutine(FadeOverlay(SBugVFXOverlay, 0.3f, 0f, fadeDuration));
     }
 
     // --- Caterpillar Coroutines ---

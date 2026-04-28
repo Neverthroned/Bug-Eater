@@ -89,6 +89,7 @@ public class WanderingAI : MonoBehaviour
 
         if (distanceToPlayer <= chaseRange)
         {
+            Debug.Log("AHHHHHHHH");
             moveSpeed = 100;
         }
         else 

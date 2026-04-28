@@ -194,11 +194,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e71667e203c84c4d874aef8bd07c889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WanderingAI
-  wanderRadius: 10
+  wanderRadius: 30
   wanderDelay: 5
-  moveSpeed: 100
-  player: {fileID: 4630261705277432993, guid: 78e035b1cfe3b47449dac7a62e980b97, type: 3}
-  chaseRange: 10
+  moveSpeed: 50
+  player: {fileID: 0}
+  spawn: {fileID: 0}
+  chaseRange: 25
+  movementRange: 100
 --- !u!1 &6323674678997899447
 GameObject:
   m_ObjectHideFlags: 0
