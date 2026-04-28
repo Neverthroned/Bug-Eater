@@ -31,11 +31,11 @@ public class EatObject : MonoBehaviour, Interactable
         }
 
         if (manager != null)
-            manager.StartBug(transform.root.gameObject);
+            manager.StartBug(gameObject);
 
         FindFirstObjectByType<PlayerInteraction>()?.EndInteraction();
 
-        Destroy(transform.root.gameObject);
+        Destroy(gameObject);
     }
 
     public string GetPrompt()
