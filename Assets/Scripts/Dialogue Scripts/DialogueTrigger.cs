@@ -48,7 +48,7 @@ public class DialogueTrigger : MonoBehaviour, Interactable
         }
 
         // Everything else: dialogue then eat
-        if (eater != null)
+        if (eater != null && snailController == null)
         {
             manager.StartDialogue(dialogue, () =>
             {

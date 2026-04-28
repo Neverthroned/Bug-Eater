@@ -53,13 +53,25 @@ public class PlayerInteraction : MonoBehaviour
     {
         CheckForInteractable();
     }
+    bool IsPlayerBusy()
+    {
+        DialogueManager dialogue = FindFirstObjectByType<DialogueManager>();
+        KeypadManager keypad = FindFirstObjectByType<KeypadManager>();
+        NarrativeManager narrative = FindFirstObjectByType<NarrativeManager>();
+
+        if (dialogue != null && dialogue.IsOpen()) return true;
+        if (keypad != null && keypad.IsOpen()) return true;
+        if (narrative != null && narrative.IsOpen()) return true;
+
+        return false;
+    }
 
     // Racast function and interact UI
     void CheckForInteractable()
     {
 
         // Do not show prompt while interacting
-        if (isInteracting)
+        if (isInteracting || IsPlayerBusy())
         {
             interactPromptUI.SetActive(false);
             return;
@@ -99,7 +111,6 @@ public class PlayerInteraction : MonoBehaviour
 
         currentInteractable.Interact();
 
-        EndInteraction();
     }
 
     public void EndInteraction()

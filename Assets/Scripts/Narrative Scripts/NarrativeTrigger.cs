@@ -47,9 +47,9 @@ public class NarrativeTrigger : MonoBehaviour, Interactable
         else
             manager.StartNarrative(narrativeImage);
         {
-            if (interactSound != null)
-                audioSource.PlayOneShot(interactSound);
-            manager.StartNarrative(narrativeImage);  
+          //  if (interactSound != null)
+          //      audioSource.PlayOneShot(interactSound);
+          //  manager.StartNarrative(narrativeImage); 
         }
     }
 

@@ -16,6 +16,13 @@ public class TimerHealthBar : MonoBehaviour
     public float flashSpeed = 5f;
     private bool isFlashing = false;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+
+    public AudioClip yellowWarningSound;
+    public AudioClip redWarningSound;
+    public AudioClip deathSound;
+
     [Header("Death UI")]
     public GameObject deathPanel;
 
@@ -42,6 +49,10 @@ public class TimerHealthBar : MonoBehaviour
 
     private PlayerWalk playerMovement;
     private PlayerCam playerCam;
+
+    //hunger tracker
+    private enum HungerZone { Green, Yellow, Red }
+    private HungerZone currentZone = HungerZone.Green;
 
     void Start()
     {
@@ -118,37 +129,56 @@ public class TimerHealthBar : MonoBehaviour
     }
     void UpdateHealthBarUI()
     {
-        
+
         float fillAmount = currentTime / maxTime;
 
-        
         if (healthBarFill != null)
-        {
             healthBarFill.fillAmount = fillAmount;
-        }
+
+        HungerZone newZone;
 
         if (fillAmount > 0.6f)
+            newZone = HungerZone.Green;
+        else if (fillAmount > 0.3f)
+            newZone = HungerZone.Yellow;
+        else
+            newZone = HungerZone.Red;
+
+        // Play sound ONLY when entering a new zone
+        if (newZone != currentZone)
+        {
+            currentZone = newZone;
+
+            if (audioSource != null)
+            {
+                if (newZone == HungerZone.Yellow && yellowWarningSound != null)
+                    audioSource.PlayOneShot(yellowWarningSound);
+
+                if (newZone == HungerZone.Red && redWarningSound != null)
+                    audioSource.PlayOneShot(redWarningSound);
+            }
+        }
+
+        // Visuals (your original logic)
+        if (currentZone == HungerZone.Green)
         {
             healthBarFill.color = Color.green;
             isFlashing = false;
-            
-            
+            timerSpeed = 1f;
         }
-        else if (fillAmount > 0.3f)
+        else if (currentZone == HungerZone.Yellow)
         {
             healthBarFill.color = Color.yellow;
             timerSpeed = 0.5f;
             isFlashing = false;
         }
-        else
+        else if (currentZone == HungerZone.Red)
         {
-            healthBarFill.color = Color.red;
             timerSpeed = 0.25f;
             isFlashing = true;
 
             float alpha = Mathf.PingPong(Time.time * flashSpeed, 1f);
             healthBarFill.color = new Color(1f, 0f, 0f, alpha);
-            
         }
     }
 
@@ -166,8 +196,12 @@ public class TimerHealthBar : MonoBehaviour
     //handles death. Ooooh I can't decide, whether you should live or die.
     void Die()
     {
+
         isDead = true;
         isPaused = true;
+
+        if (audioSource != null && deathSound != null)
+            audioSource.PlayOneShot(deathSound);
 
         Debug.Log("Player died of starvation.");
 

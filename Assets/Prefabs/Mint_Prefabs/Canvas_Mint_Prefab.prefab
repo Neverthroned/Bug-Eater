@@ -774,11 +774,16 @@ MonoBehaviour:
   healthBarFill: {fileID: 2428411958980162224}
   maxTime: 30
   flashSpeed: 5
+  audioSource: {fileID: 0}
+  yellowWarningSound: {fileID: 0}
+  redWarningSound: {fileID: 0}
+  deathSound: {fileID: 0}
   deathPanel: {fileID: 6311282885430875785}
   dialoguePanel: {fileID: 99513236183331873}
   inspectPanel: {fileID: 8459870747972783404}
   keypadPanel: {fileID: 6530665149815461760}
   interactPromptUI: {fileID: 2750883320938063399}
+  lightDrainMultiplier: 10
 --- !u!1 &1362930116476701385
 GameObject:
   m_ObjectHideFlags: 0
@@ -4322,7 +4327,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5256065950983607068
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4352,7 +4357,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 24.888885}
+  m_AnchoredPosition: {x: 0, y: 24.888916}
   m_SizeDelta: {x: 2635.962, y: 1445.7285}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2502334051141118543

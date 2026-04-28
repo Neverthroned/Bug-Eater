@@ -6,6 +6,10 @@ public class EatObject : MonoBehaviour, Interactable
     public string promptMessage = "Press E to Eat";
     public TimerHealthBar timerHealthBar;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip eatSound;
+
     void Start()
     {
         timerHealthBar = FindFirstObjectByType<TimerHealthBar>();
@@ -14,6 +18,9 @@ public class EatObject : MonoBehaviour, Interactable
     public void Interact()
     {
         Debug.Log("Bug eaten");
+
+        if (audioSource != null && eatSound != null)
+            audioSource.PlayOneShot(eatSound);
 
         BugManager manager = FindFirstObjectByType<BugManager>();
 
@@ -24,9 +31,11 @@ public class EatObject : MonoBehaviour, Interactable
         }
 
         if (manager != null)
-            manager.StartBug(gameObject);
+            manager.StartBug(transform.root.gameObject);
 
-        Destroy(gameObject);
+        FindFirstObjectByType<PlayerInteraction>()?.EndInteraction();
+
+        Destroy(transform.root.gameObject);
     }
 
     public string GetPrompt()
