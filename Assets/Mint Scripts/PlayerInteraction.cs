@@ -98,6 +98,8 @@ public class PlayerInteraction : MonoBehaviour
         interactPromptUI.SetActive(false);
 
         currentInteractable.Interact();
+
+        EndInteraction();
     }
 
     public void EndInteraction()

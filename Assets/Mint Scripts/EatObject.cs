@@ -26,16 +26,7 @@ public class EatObject : MonoBehaviour, Interactable
         if (manager != null)
             manager.StartBug(gameObject);
 
-        BugRespawnLink link = GetComponentInParent<BugRespawnLink>();
-        if (link != null)
-            link.NotifyBugEaten();
-
-
-        PlayerAudio.Instance.PlayEatSound();
-
-        FindFirstObjectByType<PlayerInteraction>()?.EndInteraction();
-
-        Destroy(transform.root.gameObject);
+        Destroy(gameObject);
     }
 
     public string GetPrompt()
