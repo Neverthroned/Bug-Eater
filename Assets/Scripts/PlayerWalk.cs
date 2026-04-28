@@ -15,11 +15,16 @@ public class PlayerWalk : MonoBehaviour
     private Vector2 m_lookAmt;
     private Rigidbody m_rigidbody;
 
+    [Header("Movement Settings")]
     public float WalkSpeed = 5;
     public float RotateSpeed = 5;
-    public float JumpSpeed = 5;
     public float SprintSpeed = 20;
 
+    [Header("Jump Settings")]
+    public float JumpSpeed = 5;
+    public float jumpCooldown = 0.5f;
+    private float lastJumpTime = -Mathf.Infinity;
+    
     private float currentSpeed;
     public float Acceleration = 10f;
 
@@ -76,7 +81,7 @@ public class PlayerWalk : MonoBehaviour
             m_moveAmt = m_moveAction.ReadValue<Vector2>();
             m_lookAmt = m_lookAction.ReadValue<Vector2>();
 
-            if (m_jumpAction.WasPressedThisFrame())
+            if (m_jumpAction.WasPressedThisFrame() && Time.time >= lastJumpTime + jumpCooldown)
             {
                 Jump();
             }
@@ -87,6 +92,7 @@ public class PlayerWalk : MonoBehaviour
     public void Jump()
     {
         m_rigidbody.AddForce(Vector3.up * JumpSpeed, ForceMode.Impulse);
+        lastJumpTime = Time.time;
     }
 
     // Speed and checks
