@@ -87,13 +87,13 @@ public class WanderingAI : MonoBehaviour
             timer = 0;
         }
 
-        if (distanceToPlayer < 1)
-        {
-            moveSpeed = 10;
-        }
-        else
+        if (distanceToPlayer <= chaseRange)
         {
             moveSpeed = 100;
+        }
+        else 
+        {
+            moveSpeed = 50f;
         }
     }
 
