@@ -63,7 +63,7 @@ public class SnailChoiceController : MonoBehaviour
 
         Destroy(gameObject);
 
-        SceneFadeManager.Instance.FadeToScene("EndingScene");
+        SceneFadeManager.Instance.FadeToScene("BadEnding");
     }
 
     void ReturnPlayerToMainScene()
