@@ -7,7 +7,10 @@ TagManager:
   - LightSpawner
   - Snail
   - Caterpillar
-  - Paper
+  - Paper T
+  - Paper B
+  - Paper 4
+  - Paper %
   layers:
   - Default
   - TransparentFX
