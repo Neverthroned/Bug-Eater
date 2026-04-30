@@ -11,6 +11,7 @@ TagManager:
   - Paper B
   - Paper 4
   - Paper %
+  - AlwaysOn
   layers:
   - Default
   - TransparentFX
